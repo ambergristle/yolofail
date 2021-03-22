@@ -24,7 +24,7 @@ function History() {
     symbol: defaults.symbol,
     amount: defaults.amount,
     date: defaults.date,
-  })
+  });
 
   // data loaded for chart (show chart?)
   const [loaded, setLoaded] = useState(false);
@@ -55,7 +55,8 @@ function History() {
       const response = await getHistory(
         payload.symbol,
         format(payload.date, "yyyy-MM-dd"),
-        payload.amount * 100)
+        payload.amount * 100
+      );
 
       // if call is successful, update details and history states
       if (response) {
@@ -80,15 +81,15 @@ function History() {
 
           setLoaded(true);
         } else if (response.status === 404) {
-          console.log('symbol error');
+          console.log("symbol error");
           setError({ symbol: "Symbol Unavailable" });
         } else {
-          console.log('system error');
+          console.log("system error");
         }
 
-      // else update error states
+        // else update error states
       } else {
-        console.log('system error'); ////// check
+        console.log("system error"); ////// check
       }
     }
 
@@ -150,7 +151,16 @@ function History() {
   return (
     <>
       <Details details={details} />
-      {loaded ? <Chart labels={history.labels} indexPrices={history.indexPrices} assetPrices={history.assetPrices} change={history.change} /> : <Loading />}
+      {loaded ? (
+        <Chart
+          labels={history.labels}
+          indexPrices={history.indexPrices}
+          assetPrices={history.assetPrices}
+          change={history.change}
+        />
+      ) : (
+        <Loading />
+      )}
       <Form
         defaults={defaults}
         selectedSymbol={selectedSymbol}
@@ -158,11 +168,12 @@ function History() {
         selectedAmount={selectedAmount}
         handleAmountChange={handleAmountChange}
         selectedDate={selectedDate}
-        handleDateChange={(date) => { setDate(date); }}
+        handleDateChange={(date) => {
+          setDate(date);
+        }}
         handleClick={handleClick}
         errors={errors}
       />
-      <Feedback />
     </>
   );
 }
