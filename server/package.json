@@ -1,0 +1,17 @@
+{
+  "name": "yolofail",
+  "version": "1.0.0",
+  "description": "chart asset performance against index",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "ambergristle",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "date-fns": "^2.19.0",
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.1"
+  }
+}
