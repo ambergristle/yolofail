@@ -74,7 +74,7 @@ function Form(props) {
             })}
             value={props.selectedDate}
             onChange={props.handleDateChange}
-            minDate={sub(props.defaults.date, { years: 4 })}
+            minDate={sub(props.defaults.date, { years: 10 })}
             disableFuture="true"
             autoOk
             animateYearScrolling
