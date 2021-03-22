@@ -1,6 +1,6 @@
 // request data pull from api
 async function getHistory(symbol, date, amount) {
-  const url = `${process.env.REACT_APP_DOMAIN}/prices/${symbol}/${date}/${amount}`;
+  const url = `${process.env.REACT_APP_DOMAIN}/api/prices/${symbol}/${date}/${amount}`;
 
   try {
     const response = await fetch(url);
