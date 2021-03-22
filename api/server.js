@@ -12,7 +12,7 @@ const API_KEY = process.env.API_KEY;
 
 // generate endpoint url and fetch data from provider
 async function _retrieve(symbol, date, shift = false, data = false) {
-  const base = `http://api.marketstack.com/v1/eod?access_key=${API_KEY}`;
+  const base = `https://api.marketstack.com/v1/eod?access_key=${API_KEY}`;
   const query = `&symbols=${symbol}`;
   const start = `&date_from=${date}`;
   const offset = shift ? `&offset=${shift}` : "";
@@ -90,7 +90,8 @@ function _package(labels, indexPrices, assetPrices, amount) {
 }
 
 // handle endpoint requests
-app.get("/prices/:symbol/:date/:amount", cors(options), async function (req, res) {
+const endpoint = "/prices/:symbol/:date/:amount";
+app.get(endpoint, cors(options), async function (req, res) {
   const symbol = req.params.symbol;
   const date = req.params.date;
   const amount = parseInt(req.params.amount) / 100;
