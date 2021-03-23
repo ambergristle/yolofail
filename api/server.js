@@ -61,7 +61,7 @@ function _extract(data) {
 
 // calculate change and package data
 function _package(labels, indexPrices, assetPrices, amount) {
-  function _clean(prices, amount) {
+  function _calcChange(prices, amount) {
     const percentChange = prices[prices.length - 1] / prices[0];
     const currentValue = percentChange * amount;
 
@@ -71,20 +71,25 @@ function _package(labels, indexPrices, assetPrices, amount) {
     };
   }
 
-  const cleanIndex = _clean(indexPrices, amount);
-  const cleanAsset = _clean(assetPrices, amount);
+  function _rebase(prices, amount) {
+    const shares = amount / prices[0];
+    return prices.map((day) => day * shares);
+  }
+
+  const indexChange = _calcChange(indexPrices, amount);
+  const assetChange = _calcChange(assetPrices, amount);
 
   return {
     details: {
-      currentValue: cleanAsset.currentValue,
-      valueDelta: cleanAsset.currentValue - cleanIndex.currentValue,
-      percentDelta: cleanAsset.percentChange - cleanIndex.percentChange,
+      currentValue: assetChange.currentValue,
+      valueDelta: assetChange.currentValue - indexChange.currentValue,
+      percentDelta: assetChange.percentChange - indexChange.percentChange,
     },
 
     chartData: {
       labels: labels,
-      indexPrices: indexPrices,
-      assetPrices: assetPrices,
+      indexPrices: _rebase(indexPrices, amount),
+      assetPrices: _rebase(assetPrices, amount),
     },
   };
 }
