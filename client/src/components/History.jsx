@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+import ReactGA from "react-ga";
+
 import sub from "date-fns/sub"; // subtract from date (time picker bounds, date shift)
 import isValid from "date-fns/isValid"; // check if date valid (form error handling)
 import format from "date-fns/format"; // format date strings (api call)
@@ -145,6 +147,20 @@ function History() {
         amount: selectedAmount,
         date: selectedDate,
       });
+      if (selectedSymbol !== defaults.symbol) {
+        ReactGA.event({
+          category: "query",
+          action: "new symbol",
+          label: selectedSymbol,
+        });
+      }
+      // if (selectedDate != defaults.date) {
+      //   ReactGA.event({
+      //     category: "query",
+      //     action: "new date",
+      //     label: format(selectedDate, "yyyy-MM-dd"),
+      //   });
+      // }
     }
   };
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import ReactGA from "react-ga";
 
@@ -8,8 +8,11 @@ import Header from "./components/Header";
 import History from "./components/History";
 
 function App() {
-  const trackingId = "UA-192848478-1";
-  ReactGA.initialize(trackingId);
+  useEffect(() => {
+    ReactGA.initialize(process.env.REACT_APP_TRACKING);
+    ReactGa.pageview(window.location.pathname + window.location.search);
+  }, []);
+
   return (
     <>
       <Header />
