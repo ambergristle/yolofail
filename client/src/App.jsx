@@ -1,11 +1,15 @@
 import React from "react";
 
+import ReactGA from "react-ga";
+
 import { Grid } from "@material-ui/core";
 
 import Header from "./components/Header";
 import History from "./components/History";
 
 function App() {
+  const trackingId = "UA-192848478-1";
+  ReactGA.initialize(trackingId);
   return (
     <>
       <Header />
