@@ -21,7 +21,8 @@ function Loading() {
       xs={12}
       container
       justify="center"
-      className={classes.chartContainer}
+      alignItems="stretch"
+      className={classes.loadingContainer}
     >
       <ReactLoading
         type="spin"
