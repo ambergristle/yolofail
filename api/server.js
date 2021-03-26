@@ -25,6 +25,7 @@ async function _retrieve(symbol, date, shift = false, data = false) {
     const response = await fetch(url);
 
     if (!response.ok) {
+      console.log(`http error: ${response.status}`);
       return response.status;
     }
 
@@ -42,6 +43,7 @@ async function _retrieve(symbol, date, shift = false, data = false) {
       return await _retrieve(symbol, date, count, items);
     }
   } catch (error) {
+    console.log(error);
     return error;
   }
 }
@@ -127,6 +129,7 @@ app.get(endpoint, cors(options), async function (req, res) {
       return res.sendStatus(!validIndex ? indexResponse : assetResponse);
     }
   } catch (error) {
+    console.log(error);
     res.status(500).send(error);
   }
 });
