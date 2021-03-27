@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 
 import ReactGA from "react-ga";
-import ReactAS from "./components/ReactAS";
 
 import { Grid } from "@material-ui/core";
 
@@ -19,13 +18,11 @@ function App() {
       <Header />
       <Grid container>
         <Grid item xs={false} sm={2}>
-          <ReactAS />
         </Grid>
         <Grid item xs={12} sm={8} spacing={2} container>
           <History />
         </Grid>
         <Grid item xs={false} sm={2}>
-          <ReactAS />
         </Grid>
       </Grid>
     </>
