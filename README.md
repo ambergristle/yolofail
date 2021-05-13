@@ -6,11 +6,11 @@ fullstack app charting asset performance against index (IVV)
 
 **built with react + node, using:**
 
-- material-ui
-- chartjs
-- date-fns
-- marketstack (stock data api)
-- digitalocean (hosting)
+- components: material-ui
+- chart: chartjs
+- date handling: date-fns
+- stock data: marketstack
+- hosting: digitalocean
 
 ## v1 - in design
 
@@ -19,3 +19,4 @@ fullstack app charting asset performance against index (IVV)
 - next to enable google ads
 - formik to improve form error handling
 - tailwind to increase component customization
+- alphaventure for better stock split support?
