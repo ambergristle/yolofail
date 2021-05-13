@@ -2,7 +2,7 @@
 
 fullstack app charting asset performance against index
 
-# v0 - deployed at https://app.yolofail.com/
+## v0 - deployed at https://app.yolofail.com/
 
 **built in react + node, using:**
 -material-ui
@@ -11,7 +11,7 @@ fullstack app charting asset performance against index
 -marketstack (stock data api)
 -digitalocean (hosting)
 
-# v1 - in design
+## v1 - in design
 
 **anticipated stack changes**
 -next to enable google ads
