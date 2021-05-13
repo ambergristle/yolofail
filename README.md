@@ -1,10 +1,10 @@
 # yolofail
 
-fullstack app charting asset performance against index
+fullstack app charting asset performance against index (IVV)
 
 ## v0 - deployed at https://app.yolofail.com/
 
-**built in react + node, using:**
+**built with react + node, using:**
 
 - material-ui
 - chartjs
@@ -14,7 +14,7 @@ fullstack app charting asset performance against index
 
 ## v1 - in design
 
-**anticipated stack changes**
+**anticipated stack changes:**
 
 - next to enable google ads
 - formik to improve form error handling
