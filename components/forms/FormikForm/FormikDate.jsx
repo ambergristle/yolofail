@@ -1,5 +1,5 @@
 import { useField } from "formik";
-import { format } from "date-fns";
+import { format, formatISO } from "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { DatePicker } from "@material-ui/pickers";
@@ -17,7 +17,7 @@ const FormikDate = ({ placceholder, ...props }) => {
       <DatePicker
         {...field}
         {...props}
-        onChange={(value) => setValue(format(value, "MM/dd/yyyy"))}
+        onChange={(value) => setValue(formatISO(value))}
         autoOk
         disableToolbar="true"
         invalidDateMessage="Invalid Date Format"

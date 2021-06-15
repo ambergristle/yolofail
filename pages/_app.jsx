@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { ThemeProvider } from "@material-ui/core/styles";
-import Layout from "../components/Layout";
+import Layout from "../components/layout/Layout";
 import theme from "../styles/theme";
-import "../styles/globals.css";
+import "../styles/global.css";
+
+import { Provider, useHydrate } from "../utils/store";
 
 const App = ({ Component, pageProps }) => {
   // remove server-side jss to preclude styling conflicts
@@ -11,11 +13,15 @@ const App = ({ Component, pageProps }) => {
     if (jssStyles) jssStyles.parentElement.removeChild(jssStyles);
   }, []);
 
+  const store = useHydrate(pageProps.initialZustandState);
+
   return (
     <ThemeProvider theme={theme}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <Provider initialStore={store}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </Provider>
     </ThemeProvider>
   );
 };

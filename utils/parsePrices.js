@@ -5,9 +5,9 @@ import format from "date-fns/format";
 // return object with asset labels, values, currentValue, and percentChange
 // uses unadjusted close and split factor
 const parsePrices = (prices, amount) => {
-  const { close: purchasePrice, split_factor: splitFactor } = prices[0];
+  const { close: purchasePrice, split_factor: purchaseSplitFactor } = prices[0];
 
-  const sharesPurchased = amount / (purchasePrice * splitFactor);
+  const sharesPurchased = amount / (purchasePrice * purchaseSplitFactor);
 
   const labels = prices.map(({ date }) => format(new Date(date), "yyyy-MM-dd"));
   const values = prices.map(
@@ -28,9 +28,13 @@ export default parsePrices;
 // return object with asset labels, values, currentValue, and percentChange
 // uses adjusted close
 const parseAdjustedPrices = (prices, amount) => {
-  const { close: purchasePrice } = prices[0];
+  const { adj_close: purchasePrice } = prices[0];
+
+  console.log("p[0]", prices[0]);
 
   const sharesPurchased = amount / purchasePrice;
+
+  console.log("shares", sharesPurchased);
 
   const labels = prices.map(({ date }) => format(new Date(date), "yyyy-MM-dd"));
   const values = prices.map(({ adj_close }) => adj_close * sharesPurchased);
@@ -39,5 +43,9 @@ const parseAdjustedPrices = (prices, amount) => {
   const currentValue = values[values.length - 1];
   const percentChange = currentValue / initialValue;
 
+  console.log("v[0]", initialValue);
+
   return { labels, values, currentValue, percentChange };
 };
+
+// export default parseAdjustedPrices;

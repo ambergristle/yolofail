@@ -4,6 +4,8 @@ import buildQuery from "./buildQuery";
 const getPrices = async (symbol, date, shift = false, prices = []) => {
   const query = buildQuery(symbol, date, shift);
 
+  console.log(query);
+
   try {
     // request data specified in query
     const {

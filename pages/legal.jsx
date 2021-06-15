@@ -1,0 +1,36 @@
+import Markdown from "markdown-to-jsx";
+import { Container, Typography, Link, makeStyles } from "@material-ui/core";
+
+import termsOfService from "../public/terms-of-service.md";
+
+const useStyles = makeStyles((theme) => ({
+  container: { marginTop: "50px" },
+  h5: { margin: "20px 0px 10px 0px" },
+  p: { textAlign: "justify", marginBottom: "10px" },
+}));
+
+const Legal = () => {
+  const { container, h5, p } = useStyles();
+
+  const options = {
+    overrides: {
+      h5: (props) => (
+        <Typography color="primary" variant="h5" {...props} className={h5} />
+      ),
+      p: (props) => <Typography {...props} className={p} />,
+      a: (props) => (
+        <Typography variant="inline" color="primary">
+          <Link {...props} />
+        </Typography>
+      ),
+    },
+  };
+
+  return (
+    <Container maxWidth="md" className={container} component="main">
+      <Markdown options={options}>{termsOfService}</Markdown>
+    </Container>
+  );
+};
+
+export default Legal;
