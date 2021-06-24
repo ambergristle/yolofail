@@ -1,4 +1,4 @@
-const API_KEY = process.env.API_KEY;
+const API_KEY = process.env.MARKETSTACK_API_KEY;
 
 const buildQuery = (symbol, date, shift) => {
   const base = `https://api.marketstack.com/v1/eod?access_key=${API_KEY}`;
