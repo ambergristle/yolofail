@@ -1,7 +1,7 @@
 import { useLayoutEffect } from "react";
 import create from "zustand";
 import createContext from "zustand/context";
-import { persist } from "zustand/middleware";
+import { persist, devtools } from "zustand/middleware";
 
 // declare global store
 let store;
@@ -31,17 +31,19 @@ export const { Provider, useStore } = createContext(initialState);
 // initialize store methods
 export const initializeStore = (preloadedState = {}) =>
   create(
-    persist(
-      (set, get) => ({
-        ...initialState,
-        ...preloadedState,
-        storeQuery: ({ query }) => set({ query }),
-        storeResults: ({ details, chartData }) => set({ details, chartData }),
-      }),
-      {
-        name: "global-store",
-        getStorage: () => sessionStorage,
-      }
+    devtools(
+      persist(
+        (set, get) => ({
+          ...initialState,
+          ...preloadedState,
+          storeQuery: (query) => set({ query }),
+          storeResults: ({ details, chartData }) => set({ details, chartData }),
+        }),
+        {
+          name: "global-store",
+          getStorage: () => sessionStorage,
+        }
+      )
     )
   );
 

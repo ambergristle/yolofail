@@ -12,7 +12,7 @@ fullstack app charting asset performance against index (IVV)
 - stock data: marketstack
 - hosting: digitalocean
 
-## v1 - in design
+## v1 - in development
 
 **anticipated stack changes:**
 

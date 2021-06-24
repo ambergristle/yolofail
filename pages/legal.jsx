@@ -4,7 +4,7 @@ import { Container, Typography, Link, makeStyles } from "@material-ui/core";
 import termsOfService from "../public/terms-of-service.md";
 
 const useStyles = makeStyles((theme) => ({
-  container: { marginTop: "50px" },
+  container: { marginTop: "30px", marginBottom: "20px" },
   h5: { margin: "20px 0px 10px 0px" },
   p: { textAlign: "justify", marginBottom: "10px" },
 }));
@@ -18,11 +18,7 @@ const Legal = () => {
         <Typography color="primary" variant="h5" {...props} className={h5} />
       ),
       p: (props) => <Typography {...props} className={p} />,
-      a: (props) => (
-        <Typography variant="inline" color="primary">
-          <Link {...props} />
-        </Typography>
-      ),
+      a: (props) => <Link display="inline" color="primary" {...props} />,
     },
   };
 

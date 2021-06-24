@@ -4,6 +4,7 @@ import { Box, Typography, makeStyles } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   footer: {
     width: "100%",
+    padding: "10px",
     alignSelf: "flex-start",
     display: "flex",
     alignItems: "center",

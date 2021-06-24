@@ -2,7 +2,7 @@ import { useField } from "formik";
 import { TextField, FormHelperText } from "@material-ui/core";
 
 // map formik props to TextField component
-const FormikField = ({ type, placeholder, multiline, rows, ...props }) => {
+const FormikField = ({ type, label, placeholder, ...props }) => {
   // field passes props required for form handling
   const [field, meta] = useField(props);
 
@@ -16,9 +16,7 @@ const FormikField = ({ type, placeholder, multiline, rows, ...props }) => {
       type={type}
       placeholder={placeholder}
       error={!!errorText}
-      label={errorText}
-      multiline={multiline}
-      rows={rows}
+      label={errorText ? errorText : label}
       fullWidth
       variant="outlined"
       margin="dense"

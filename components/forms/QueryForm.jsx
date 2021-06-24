@@ -19,6 +19,7 @@ import FormikValues from "./FormikForm/FormikValues";
 const useStyles = makeStyles((theme) => ({
   validatedInput: { marginBottom: "20px" },
   queryButtonBlock: { display: "flex", justifyContent: "center" },
+  queryButton: {},
 }));
 
 const validationSchema = yup.object({
@@ -27,7 +28,7 @@ const validationSchema = yup.object({
 });
 
 const QueryForm = () => {
-  const { validatedInput, queryButtonBlock } = useStyles();
+  const { validatedInput, queryButtonBlock, queryButton } = useStyles();
 
   const initialValues = useStore(getQuerySelector);
   const storeQuery = useStore(setQuerySelector);
@@ -37,8 +38,6 @@ const QueryForm = () => {
     storeQuery({ symbol, amount, date });
 
     const results = await tryQuery({ symbol, amount, date });
-
-    console.log("results", results);
 
     if (results) storeResults(results);
   };
@@ -51,13 +50,19 @@ const QueryForm = () => {
     >
       <Grid container spacing={1}>
         <Grid item xs={12} sm={4}>
-          <FormikField name="symbol" type="text" placeholder="" />
+          <FormikField
+            name="symbol"
+            type="text"
+            label="symbol"
+            placeholder="GOOG"
+          />
         </Grid>
         <Grid item xs={12} sm={4}>
           <FormikField
             name="amount"
             type="number"
-            placeholder=""
+            label="amount"
+            placeholder="100.00"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">$</InputAdornment>
@@ -66,10 +71,15 @@ const QueryForm = () => {
           />
         </Grid>
         <Grid item xs={12} sm={4}>
-          <FormikDate name="date" placeholder="" />
+          <FormikDate name="date" label="date" />
         </Grid>
         <Grid item xs={12} className={queryButtonBlock}>
-          <FormikButton type="submit" label="yeet" color="primary" />
+          <FormikButton
+            type="submit"
+            label="yeet"
+            color="primary"
+            className={queryButton}
+          />
         </Grid>
       </Grid>
     </FormikForm>

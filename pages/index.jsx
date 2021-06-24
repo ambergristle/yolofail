@@ -31,12 +31,9 @@ export const getServerSideProps = async (context) => {
 
   const initialResults = await getValues("GOOG", 100);
 
-  const { query, results } = initialResults;
-
   const initialZustandState = {
     ...zustandStore.getState(),
-    query,
-    ...results,
+    ...initialResults,
   };
 
   return {

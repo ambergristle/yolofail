@@ -30,7 +30,7 @@ const getValues = async (symbol, amount, date = newDate) => {
 
     return {
       query: { symbol, amount, date: date },
-      results,
+      ...results,
     };
   } catch (error) {
     console.log(error);

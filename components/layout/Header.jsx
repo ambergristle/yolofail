@@ -3,6 +3,7 @@ import { Box, Typography, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   header: {
+    padding: "10px",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
