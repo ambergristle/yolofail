@@ -26,6 +26,11 @@ class Document extends NextDocument {
           `,
             }}
           />
+          <script
+            data-ad-client="ca-pub-5710547669928682"
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+          />
         </Head>
         <body>
           <Main />
