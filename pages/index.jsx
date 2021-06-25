@@ -11,10 +11,6 @@ import ValueChart from "../components/chart/ValueChart";
 import QueryForm from "../components/forms/QueryForm";
 
 const ChartView = () => {
-  const [loading, setLoading] = useState(false);
-
-  const toggleLoading = () => setLoading(!loading);
-
   return (
     <>
       <Head>
@@ -23,8 +19,8 @@ const ChartView = () => {
       </Head>
       <AdGrid>
         <ChartDetails />
-        <ValueChart loading={loading} />
-        <QueryForm toggleLoading={toggleLoading} />
+        <ValueChart />
+        <QueryForm />
       </AdGrid>
     </>
   );

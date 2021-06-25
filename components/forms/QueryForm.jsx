@@ -5,6 +5,7 @@ import { Grid, InputAdornment, makeStyles } from "@material-ui/core";
 import tryQuery from "../../utils/tryQuery";
 import {
   useStore,
+  toggleloadingSelector,
   getQuerySelector,
   setQuerySelector,
   setResultsSelector,
@@ -26,10 +27,11 @@ const validationSchema = yup.object({
   amount: yup.number().required(),
 });
 
-const QueryForm = ({ toggleLoading }) => {
+const QueryForm = () => {
   const { validatedInput, queryButtonBlock, queryButton } = useStyles();
 
   const initialValues = useStore(getQuerySelector);
+  const toggleLoading = useStore(toggleloadingSelector);
   const storeQuery = useStore(setQuerySelector);
   const storeResults = useStore(setResultsSelector);
 

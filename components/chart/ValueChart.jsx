@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Box, CircularProgress, makeStyles } from "@material-ui/core";
 import { Line } from "react-chartjs-2";
 
@@ -5,6 +6,7 @@ import Loading from "./Loading";
 
 import {
   useStore,
+  getloadingSelector,
   getChartDataSelector,
   getChangeSelector,
 } from "../../utils/store";
@@ -19,14 +21,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ValueChart = ({ loading }) => {
+// prevent redundant rerenders when loading state changes
+const LineChart = memo(({ values, change }) => (
+  <Line data={data({ ...values, change })} options={options} />
+));
+
+const ValueChart = () => {
   const { chartContainer } = useStyles();
+
+  const loading = useStore(getloadingSelector);
   const values = useStore(getChartDataSelector);
   const change = useStore(getChangeSelector);
 
   return (
     <Box className={chartContainer}>
-      <Line data={data({ ...values, change })} options={options} />
+      <LineChart values={values} change={change} />
       <Loading loading={loading} />
     </Box>
   );
