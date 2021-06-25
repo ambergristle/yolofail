@@ -1,5 +1,7 @@
 {
   "name": "yolofail",
+  "author": "ambergristle",
+  "license": "UNLICENSED",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -28,6 +30,7 @@
     "zustand": "^3.5.2"
   },
   "devDependencies": {
-    "raw-loader": "^4.0.2"
+    "raw-loader": "^4.0.2",
+    "resize-observer-polyfill": "^1.5.1"
   }
 }

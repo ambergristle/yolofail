@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import "resize-observer-polyfill";
 import { ThemeProvider } from "@material-ui/core/styles";
 import Layout from "../components/layout/Layout";
 import theme from "../styles/theme";
