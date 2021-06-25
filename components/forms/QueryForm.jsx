@@ -19,7 +19,6 @@ import FormikValues from "./FormikForm/FormikValues";
 const useStyles = makeStyles((theme) => ({
   validatedInput: { marginBottom: "20px" },
   queryButtonBlock: { display: "flex", justifyContent: "center" },
-  queryButton: {},
 }));
 
 const validationSchema = yup.object({
@@ -27,7 +26,7 @@ const validationSchema = yup.object({
   amount: yup.number().required(),
 });
 
-const QueryForm = () => {
+const QueryForm = ({ toggleLoading }) => {
   const { validatedInput, queryButtonBlock, queryButton } = useStyles();
 
   const initialValues = useStore(getQuerySelector);
@@ -35,11 +34,13 @@ const QueryForm = () => {
   const storeResults = useStore(setResultsSelector);
 
   const queryValues = async ({ symbol, amount, date }) => {
+    toggleLoading();
     storeQuery({ symbol, amount, date });
 
     const results = await tryQuery({ symbol, amount, date });
 
     if (results) storeResults(results);
+    toggleLoading();
   };
 
   return (
@@ -78,7 +79,7 @@ const QueryForm = () => {
             type="submit"
             label="yeet"
             color="primary"
-            className={queryButton}
+            width="50%"
           />
         </Grid>
       </Grid>

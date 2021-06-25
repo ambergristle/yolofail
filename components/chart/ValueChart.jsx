@@ -1,6 +1,8 @@
 import { Box, CircularProgress, makeStyles } from "@material-ui/core";
 import { Line } from "react-chartjs-2";
 
+import Loading from "./Loading";
+
 import {
   useStore,
   getChartDataSelector,
@@ -17,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ValueChart = () => {
+const ValueChart = ({ loading }) => {
   const { chartContainer } = useStyles();
   const values = useStore(getChartDataSelector);
   const change = useStore(getChangeSelector);
@@ -25,6 +27,7 @@ const ValueChart = () => {
   return (
     <Box className={chartContainer}>
       <Line data={data({ ...values, change })} options={options} />
+      <Loading loading={loading} />
     </Box>
   );
 };

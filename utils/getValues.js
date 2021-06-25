@@ -23,8 +23,6 @@ const getValues = async (symbol, amount, date = newDate) => {
       await getPrices(symbol, dateString),
     ]);
 
-    console.log(symbol, rawAsset);
-
     const parsedIndex = parseAdjustedPrices(rawIndex, amount);
     const parsedAsset = parseAdjustedPrices(rawAsset, amount);
 

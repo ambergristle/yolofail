@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState } from "react";
 import Head from "next/head";
 import { Grid } from "@material-ui/core";
 
@@ -11,6 +11,10 @@ import ValueChart from "../components/chart/ValueChart";
 import QueryForm from "../components/forms/QueryForm";
 
 const ChartView = () => {
+  const [loading, setLoading] = useState(false);
+
+  const toggleLoading = () => setLoading(!loading);
+
   return (
     <>
       <Head>
@@ -19,18 +23,26 @@ const ChartView = () => {
       </Head>
       <AdGrid>
         <ChartDetails />
-        <ValueChart />
-        <QueryForm />
+        <ValueChart loading={loading} />
+        <QueryForm toggleLoading={toggleLoading} />
       </AdGrid>
     </>
   );
 };
 
-export const getServerSideProps = async (context) => {
+export const getServerSideProps = async ({ req }) => {
+  // return empty object if client-side routing (prevents store from being overwritten)
+  if (!req || req.url?.startsWith("/_next/data")) {
+    return { props: {} };
+  }
+
+  // on initial load/refresh, initialize store
   const zustandStore = initializeStore();
 
+  // fetch default values
   const initialResults = await getValues("GOOG", 100);
 
+  // populate store with initial query and results
   const initialZustandState = {
     ...zustandStore.getState(),
     ...initialResults,
