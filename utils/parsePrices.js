@@ -1,5 +1,7 @@
 import format from "date-fns/format";
 
+// // if next day has split factor
+// // divide all previous prices
 // extract date and price values from api response
 // parse datestring to yyyy-MM-dd and adjust to value of shares purchased
 // return object with asset labels, values, currentValue, and percentChange
@@ -7,11 +9,11 @@ import format from "date-fns/format";
 const parsePrices = (prices, amount) => {
   const { close: purchasePrice, split_factor: purchaseSplitFactor } = prices[0];
 
-  const sharesPurchased = amount / (purchasePrice / purchaseSplitFactor);
+  const sharesPurchased = amount / (purchasePrice * purchaseSplitFactor);
 
   const labels = prices.map(({ date }) => format(new Date(date), "yyyy-MM-dd"));
   const values = prices.map(
-    ({ close, split_factor }) => (close / split_factor) * sharesPurchased
+    ({ close, split_factor }) => close * split_factor * sharesPurchased
   );
 
   const initialValue = values[0];
@@ -21,8 +23,6 @@ const parsePrices = (prices, amount) => {
   return { labels, values, currentValue, percentChange };
 };
 
-export default parsePrices;
-
 // extract date and price values from api response
 // parse datestring to yyyy-MM-dd and adjust to value of shares purchased
 // return object with asset labels, values, currentValue, and percentChange
@@ -30,11 +30,7 @@ export default parsePrices;
 const parseAdjustedPrices = (prices, amount) => {
   const { adj_close: purchasePrice } = prices[0];
 
-  console.log("p[0]", prices[0]);
-
   const sharesPurchased = amount / purchasePrice;
-
-  console.log("shares", sharesPurchased);
 
   const labels = prices.map(({ date }) => format(new Date(date), "yyyy-MM-dd"));
   const values = prices.map(({ adj_close }) => adj_close * sharesPurchased);
@@ -43,9 +39,7 @@ const parseAdjustedPrices = (prices, amount) => {
   const currentValue = values[values.length - 1];
   const percentChange = currentValue / initialValue;
 
-  console.log("v[0]", initialValue);
-
   return { labels, values, currentValue, percentChange };
 };
 
-// export default parseAdjustedPrices;
+export default parseAdjustedPrices;

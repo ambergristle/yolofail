@@ -1,7 +1,7 @@
 import { formatISO, format, sub, set } from "date-fns";
 
 import getPrices from "./getPrices";
-import parsePrices from "./parsePrices";
+import parseAdjustedPrices from "./parsePrices";
 import packageValues from "./packageValues";
 
 const newDate = sub(new Date(), { years: 1 });
@@ -23,8 +23,10 @@ const getValues = async (symbol, amount, date = newDate) => {
       await getPrices(symbol, dateString),
     ]);
 
-    const parsedIndex = parsePrices(rawIndex, amount);
-    const parsedAsset = parsePrices(rawAsset, amount);
+    console.log(symbol, rawAsset);
+
+    const parsedIndex = parseAdjustedPrices(rawIndex, amount);
+    const parsedAsset = parseAdjustedPrices(rawAsset, amount);
 
     const results = packageValues(parsedIndex, parsedAsset);
 
