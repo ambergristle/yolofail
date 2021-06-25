@@ -2,9 +2,9 @@
 
 fullstack app charting asset performance against index (IVV)
 
-## v0 - deployed at https://app.yolofail.com/
+## v0 - deprecated
 
-**built with react + node, using:**
+**built with react + node using:**
 
 - components: material-ui
 - chart: chartjs
@@ -12,11 +12,18 @@ fullstack app charting asset performance against index (IVV)
 - stock data: marketstack
 - hosting: digitalocean
 
-## v1 - in development
+## v1 - deployed at https://app.yolofail.com/
+
+**built with next.js using:**
+_switched to enable seo and adsense_
+
+- forms: formik + yup
+- markdown (terms of service): markdown-to-jsx + raw-loader
+- global state (queries, results): zustand
+
+## v1.1 - in design
 
 **anticipated stack changes:**
 
-- next to enable google ads
-- formik to improve form error handling
 - tailwind to increase component customization
 - alphaventure for better stock split support?

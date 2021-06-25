@@ -7,11 +7,11 @@ import format from "date-fns/format";
 const parsePrices = (prices, amount) => {
   const { close: purchasePrice, split_factor: purchaseSplitFactor } = prices[0];
 
-  const sharesPurchased = amount / (purchasePrice * purchaseSplitFactor);
+  const sharesPurchased = amount / (purchasePrice / purchaseSplitFactor);
 
   const labels = prices.map(({ date }) => format(new Date(date), "yyyy-MM-dd"));
   const values = prices.map(
-    ({ close, split_factor }) => close * split_factor * sharesPurchased
+    ({ close, split_factor }) => (close / split_factor) * sharesPurchased
   );
 
   const initialValue = values[0];
