@@ -1,4 +1,4 @@
-import getValues from "../../utils/getValues";
+import getValues from "../../utils/query/getValues";
 
 const query = async (req, res) => {
   const { symbol, amount, date } = req.body;
