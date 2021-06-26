@@ -2,7 +2,7 @@ import * as yup from "yup";
 import sub from "date-fns/sub";
 import { Grid, InputAdornment, makeStyles } from "@material-ui/core";
 
-import tryQuery from "../../utils/tryQuery";
+import tryQuery from "../../utils/query/tryQuery";
 import {
   useStore,
   toggleloadingSelector,
@@ -11,11 +11,11 @@ import {
   setResultsSelector,
 } from "../../utils/store";
 
-import FormikForm from "./FormikForm/FormikForm";
-import FormikField from "./FormikForm/FormikField";
-import FormikDate from "./FormikForm/FormikDate";
-import FormikButton from "./FormikForm/FormikButton";
-import FormikValues from "./FormikForm/FormikValues";
+import FormikForm from "./formik-form/FormikForm";
+import FormikField from "./formik-form/FormikField";
+import FormikDate from "./formik-form/FormikDate";
+import FormikButton from "./formik-form/FormikButton";
+import FormikValues from "./formik-form/FormikValues";
 
 const useStyles = makeStyles((theme) => ({
   validatedInput: { marginBottom: "20px" },

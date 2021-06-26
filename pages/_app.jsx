@@ -1,6 +1,6 @@
-import ResizeObserver from "resize-observer-polyfill";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { install as addResizeObserver } from "resize-observer";
 import { ThemeProvider } from "@material-ui/core/styles";
 import Layout from "../components/layout/Layout";
 import theme from "../styles/theme";
@@ -9,6 +9,10 @@ import "../styles/global.css";
 import * as gtag from "../utils/gtag";
 
 import { Provider, useHydrate } from "../utils/store";
+
+if (typeof window !== "undefined" && !window.ResizeObserver) {
+  addResizeObserver();
+}
 
 const App = ({ Component, pageProps }) => {
   const router = useRouter();

@@ -9,6 +9,7 @@ let store;
 // set initial state values for form and chart
 const initialState = {
   loading: false,
+  sentFeedback: false,
   query: {
     symbol: null,
     amount: null,
@@ -40,6 +41,7 @@ export const initializeStore = (preloadedState = {}) =>
           storeQuery: (query) => set({ query }),
           storeResults: ({ details, chartData }) => set({ details, chartData }),
           toggleLoading: () => set(({ loading }) => ({ loading: !loading })),
+          setSentFeedback: () => set({ sentFeedback: true }),
         }),
         {
           name: "global-store",
@@ -50,12 +52,14 @@ export const initializeStore = (preloadedState = {}) =>
   );
 
 export const getloadingSelector = (state) => state.loading;
+export const getSentFeedbackSelector = (state) => state.sentFeedback;
 export const getQuerySelector = (state) => state.query;
 export const getDetailsSelector = (state) => state.details;
 export const getChartDataSelector = (state) => state.chartData;
 export const getChangeSelector = (state) => state.details.valueDelta;
 
 export const toggleloadingSelector = (state) => state.toggleLoading;
+export const setSentFeedbackSelector = (state) => state.setSentFeedback;
 export const setQuerySelector = (state) => state.storeQuery;
 export const setResultsSelector = (state) => state.storeResults;
 

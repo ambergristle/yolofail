@@ -1,6 +1,7 @@
 const Details = ({ change, value, percent }) => {
   value = value.toFixed(2);
   percent = perce.toFixed(2);
+
   return (
     <Box>
       <Typography variant="h2">
