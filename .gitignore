@@ -78,3 +78,6 @@ typings/
 
 # DigitalOcean app spec
 .do/
+
+# development helper fns
+tickers/

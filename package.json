@@ -1,8 +1,15 @@
 {
   "name": "yolofail",
-  "author": "ambergristle",
-  "license": "UNLICENSED",
   "version": "1.0.0",
+  "author": "ambergristle",
+  "repository": "https://github.com/ambergristle/yolofail",
+  "homepage": "https://www.yolofail.com",
+  "description": "chart an asset's performance against the market (index)",
+  "keywords": [
+    "stocks",
+    "chart"
+  ],
+  "license": "UNLICENSED",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -14,6 +21,7 @@
     "@date-io/date-fns": "1.x",
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.58",
     "@material-ui/pickers": "^3.3.10",
     "@sendgrid/mail": "^7.4.5",
     "axios": "^0.21.1",
