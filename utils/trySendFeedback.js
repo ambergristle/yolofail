@@ -1,10 +1,10 @@
 import axios from "axios";
 
 // generate message object with default, user-provided values
-const newMessage = ({ from, message }) => ({
+const newMessage = ({ email, message }) => ({
   to: "hello@yolofail.com",
   from: "feedback@yolofail.com",
-  replyTo: from,
+  replyTo: email,
   subject: "User Feedback",
   text: message,
 });
