@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Box, Typography, makeStyles } from "@material-ui/core";
 
+// set spacing, style logo as link
 const useStyles = makeStyles((theme) => ({
   header: {
     padding: "10px",
@@ -11,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
   logoLink: { cursor: "pointer" },
 }));
 
+// link to /index
 const Header = () => {
   const { header, logoLink } = useStyles();
 

@@ -7,6 +7,8 @@ import { InputAdornment } from "@material-ui/core";
 import EventIcon from "@material-ui/icons/Event";
 
 // map formik props to DateTimePicker component
+// // future disabled, min date 10 years?
+// // error messages unnecessary as typing input unavailable
 const FormikDate = ({ placceholder, ...props }) => {
   // field passes props required for form handling
   const [field, meta, helpers] = useField(props);
@@ -20,10 +22,10 @@ const FormikDate = ({ placceholder, ...props }) => {
         onChange={(value) => setValue(formatISO(value))}
         autoOk
         disableToolbar="true"
-        invalidDateMessage="Invalid Date Format"
+        invalidDateMessage="invalid date format"
         disableFuture="true"
-        minDateMessage="Data Unavailable"
-        maxDateMessage="Data Unavailable"
+        minDateMessage="data unavailable"
+        maxDateMessage="data Uuavailable"
         inputVariant="outlined"
         margin="dense"
         fullWidth

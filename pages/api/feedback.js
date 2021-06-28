@@ -8,7 +8,9 @@ const feedback = async (req, res) => {
   const message = req.body;
 
   try {
+    // post message to sendgrid via client
     const [response] = await mail.send(message);
+
     return res.status(response.statusCode).end();
   } catch (error) {
     if (error.response) {
@@ -21,3 +23,5 @@ const feedback = async (req, res) => {
 };
 
 export default feedback;
+
+// 400 format error

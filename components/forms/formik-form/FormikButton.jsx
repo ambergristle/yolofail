@@ -1,5 +1,11 @@
 import { useFormikContext } from "formik";
-import { Box, Button, CircularProgress, makeStyles } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  FormHelperText,
+  makeStyles,
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   buttonBlock: {
@@ -23,16 +29,17 @@ const useStyles = makeStyles((theme) => ({
 
 // map formik props to Button component
 // display form-wide errors; disable when invalid or submitting
+// // overlay with spinner while submitting (in progress) if showLoad
 const FormikButton = ({ showLoad, label, width, ...props }) => {
   const { buttonBlock, widthButton, loadingSpinner } = useStyles({ width });
 
-  const { isSubmitting, isValid, dirty, errors, values } = useFormikContext();
+  // get form state from formik context
+  const { isSubmitting, isValid, dirty } = useFormikContext();
   const pending = !isValid || !dirty || isSubmitting; // disable when invalid or submitting
-  const error = errors.action; // display form action error
 
   return (
     <Box className={buttonBlock}>
-      <Box className={buttonBlock} position="relative">
+      <Box className={buttonBlock} position="relative" flexDirection="column">
         <Button
           {...props}
           disabled={pending}
@@ -49,7 +56,6 @@ const FormikButton = ({ showLoad, label, width, ...props }) => {
             className={loadingSpinner}
           />
         )}
-        {error && <FormHelperText error>{error}</FormHelperText>}
       </Box>
     </Box>
   );

@@ -3,14 +3,10 @@ import { Box, CircularProgress, makeStyles } from "@material-ui/core";
 import { Line } from "react-chartjs-2";
 
 import Loading from "./Loading";
+import SystemError from "./SystemError";
 
-import {
-  useStore,
-  getloadingSelector,
-  getChartDataSelector,
-  getChangeSelector,
-} from "../../utils/store";
-import { options, data } from "./defaults";
+import { useStore, valueChartSelectors as selectors } from "../../utils/store";
+import { options, data } from "./chartDefaults";
 
 // chart responds to container size when container has relative position
 const useStyles = makeStyles((theme) => ({
@@ -26,17 +22,26 @@ const LineChart = memo(({ values, change }) => (
   <Line data={data({ ...values, change })} options={options} />
 ));
 
+// chart selected asset performance against index
 const ValueChart = () => {
   const { chartContainer } = useStyles();
 
-  const loading = useStore(getloadingSelector);
-  const values = useStore(getChartDataSelector);
-  const change = useStore(getChangeSelector);
+  // get data from store
+  const loading = useStore(selectors.getLoading);
+  const { error, message } = useStore(selectors.getSystemError);
+  const values = useStore(selectors.getChartData);
+  const change = useStore(selectors.getChange);
 
   return (
     <Box className={chartContainer}>
-      <LineChart values={values} change={change} />
-      <Loading loading={loading} />
+      {!error ? (
+        <>
+          <LineChart values={values} change={change} />
+          <Loading loading={loading} />
+        </>
+      ) : (
+        <SystemError message={message} />
+      )}
     </Box>
   );
 };

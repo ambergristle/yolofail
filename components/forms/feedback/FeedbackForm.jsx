@@ -2,11 +2,11 @@ import * as yup from "yup";
 
 import { useStore, setSentFeedbackSelector } from "../../../utils/store";
 import trySendFeedback from "../../../utils/trySendFeedback";
-
 import FormikForm from "../formik-form/FormikForm";
 import FormikField from "../formik-form/FormikField";
 import FormikButton from "../formik-form/FormikButton";
 
+// set initial form values (empty) and validation schema, error messages
 const initialValues = { email: "", message: "" };
 
 const validationSchema = yup.object({
@@ -17,9 +17,13 @@ const validationSchema = yup.object({
   message: yup.string().required("please include a message"),
 });
 
+// collect user feedback (only permit once per session)
 const FeedbackForm = () => {
+  // get sentFeedback update function from store
   const sentFeedback = useStore(setSentFeedbackSelector);
 
+  // attempt to send feedback, set sentFeedBack if successful
+  // display error message on failure
   const sendFeedback = async (values, { setSubmitting }) => {
     const sent = await trySendFeedback(values);
     if (sent) {

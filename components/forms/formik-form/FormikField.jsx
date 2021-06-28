@@ -6,7 +6,7 @@ const FormikField = ({ type, label, placeholder, ...props }) => {
   // field passes props required for form handling
   const [field, meta] = useField(props);
 
-  // if field error and field touched, display error
+  // if field error and field touched, display error as label
   const errorText = meta.error && meta.touched ? meta.error : "";
 
   return (

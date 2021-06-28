@@ -3,45 +3,59 @@ import sub from "date-fns/sub";
 import { Grid, InputAdornment, makeStyles } from "@material-ui/core";
 
 import tryQuery from "../../utils/query/tryQuery";
-import {
-  useStore,
-  toggleloadingSelector,
-  getQuerySelector,
-  setQuerySelector,
-  setResultsSelector,
-} from "../../utils/store";
-
+import { useStore, queryFormSelectors as selectors } from "../../utils/store";
 import FormikForm from "./formik-form/FormikForm";
 import FormikField from "./formik-form/FormikField";
 import FormikDate from "./formik-form/FormikDate";
 import FormikButton from "./formik-form/FormikButton";
 import FormikValues from "./formik-form/FormikValues";
 
+// add margin below validated input to accomodate error message
+// center submit button
 const useStyles = makeStyles((theme) => ({
   validatedInput: { marginBottom: "20px" },
   queryButtonBlock: { display: "flex", justifyContent: "center" },
 }));
 
+// require symbol and amount (date always populated)
 const validationSchema = yup.object({
   symbol: yup.string().required(),
   amount: yup.number().required(),
 });
 
+// collect query values and execute, updating chart if successful
 const QueryForm = () => {
   const { validatedInput, queryButtonBlock, queryButton } = useStyles();
 
-  const initialValues = useStore(getQuerySelector);
-  const toggleLoading = useStore(toggleloadingSelector);
-  const storeQuery = useStore(setQuerySelector);
-  const storeResults = useStore(setResultsSelector);
+  // get data and update functions from store
+  const [setSystemError, resetSystemError] = useStore(selectors.systemError);
+  const initialValues = useStore(selectors.getQuery);
+  const toggleLoading = useStore(selectors.toggleLoading);
+  const setQuery = useStore(selectors.setQuery);
+  const setResults = useStore(selectors.setResults);
 
-  const queryValues = async ({ symbol, amount, date }) => {
+  // execute query, store values, toggle loading spinner during request
+  const queryValues = async ({ symbol, amount, date }, { setFieldError }) => {
+    resetSystemError();
     toggleLoading();
-    storeQuery({ symbol, amount, date });
+    setQuery({ symbol, amount, date });
 
-    const results = await tryQuery({ symbol, amount, date });
+    try {
+      // get results from attempted query
+      const results = await tryQuery({ symbol, amount, date });
 
-    if (results) storeResults(results);
+      // if successful, store results
+      if (results) setResults(results);
+    } catch (error) {
+      const { status, message } = error.response;
+
+      // if error < 500, user error, else system error
+      if (status < 500) {
+        setFieldError("symbol", message);
+      } else {
+        setSystemError(message);
+      }
+    }
     toggleLoading();
   };
 

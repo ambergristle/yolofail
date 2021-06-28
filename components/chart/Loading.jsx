@@ -1,5 +1,6 @@
 import { Box, CircularProgress, makeStyles } from "@material-ui/core";
 
+// layer spinner over chart, display when loading only
 const useStyles = makeStyles((theme) => ({
   loadingBlock: {
     position: "absolute",
@@ -16,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// overlay semi-tranlucent loading spinner while value data is retrieved
 const Loading = ({ loading }) => {
   const { loadingBlock, loadingSpinner } = useStyles(loading);
 

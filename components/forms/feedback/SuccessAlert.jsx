@@ -1,6 +1,7 @@
 import { Box, Paper, Typography, makeStyles } from "@material-ui/core";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 
+// set alert styling
 const useStyles = makeStyles((theme) => ({
   successAlert: {
     margin: "8px 0px 4px 0px",
@@ -14,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
   checkIcon: { paddingRight: "5px" },
 }));
 
+// show success alert instead of form after submission
 const SuccessAlert = () => {
   const { successAlert, checkIcon } = useStyles();
 

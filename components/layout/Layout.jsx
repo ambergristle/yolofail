@@ -4,6 +4,7 @@ import { Box } from "@material-ui/core";
 import Header from "./Header";
 import Footer from "./Footer";
 
+// set global header values, wrap all pages in header/footer
 const Layout = ({ children }) => {
   return (
     <Box minHeight="100vh" display="flex" flexDirection="column">

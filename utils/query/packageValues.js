@@ -1,3 +1,4 @@
+// construct data return object, formatted for chart, details ingestion
 const packageValues = (index, asset) => ({
   details: {
     currentValue: asset.currentValue,

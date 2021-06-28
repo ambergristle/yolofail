@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Box, Typography, makeStyles } from "@material-ui/core";
 
+// set spacing, style typography as link
 const useStyles = makeStyles((theme) => ({
   footer: {
     padding: "20px",
@@ -14,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// link to legal, about?, social?
 const Footer = () => {
   const { footer, footerLink } = useStyles();
 

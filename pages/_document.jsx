@@ -1,10 +1,11 @@
-import { Children } from "react";
 import NextDocument, { Html, Head, Main, NextScript } from "next/document";
+import { Children } from "react";
 import { ServerStyleSheets } from "@material-ui/core/styles";
-import theme from "../styles/theme";
 
+import theme from "../styles/theme";
 import { GA_TRACKING_ID } from "../utils/gtag";
 
+// import google analytics and adsense scripts, using public tracking id
 class Document extends NextDocument {
   render() {
     return (
@@ -40,12 +41,6 @@ class Document extends NextDocument {
     );
   }
 }
-
-// <script
-//   async
-//   data-ad-client=""
-//   src=""
-// />
 
 // set resolution order to avoid ssg style conflicts
 Document.getInitialProps = async (ctx) => {

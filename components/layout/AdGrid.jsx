@@ -1,5 +1,6 @@
 import { Grid, makeStyles } from "@material-ui/core";
 
+// expand vertically to fill window, align contnt vertically
 const useStyles = makeStyles((theme) => ({
   main: { flex: 1 },
   container: {
@@ -9,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// designate gutter space for ads (/index)
 const AdGrid = ({ children }) => {
   const { main, container } = useStyles();
 

@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// generate message object with default, user-provided values
 const newMessage = ({ from, message }) => ({
   to: "hello@yolofail.com",
   from: "feedback@yolofail.com",
@@ -8,6 +9,8 @@ const newMessage = ({ from, message }) => ({
   text: message,
 });
 
+// // handle errors/error messages
+// send message to api
 const trySendFeedback = async (feedback) => {
   const message = newMessage(feedback);
 
