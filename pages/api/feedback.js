@@ -11,13 +11,13 @@ const feedback = async (req, res) => {
     // post message to sendgrid via client
     const [response] = await mail.send(message);
 
-    return res.status(response.statusCode).end();
+    return res.status(200).end();
   } catch (error) {
     if (error.response) {
-      console.error(error.response.body);
+      console.log(error.response.body);
       return res.status(error.code).end();
     }
-    console.error(error);
+    console.log(error);
     return res.status(500).end();
   }
 };

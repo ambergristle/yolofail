@@ -16,11 +16,11 @@ const AdGrid = ({ children }) => {
 
   return (
     <Grid container component="main" className={main}>
-      <Grid item xs={false} sm={2}></Grid>
+      <Grid item xs={1} sm={2}></Grid>
       <Grid item xs={12} sm={8} className={container}>
         {children}
       </Grid>
-      <Grid item xs={false} sm={2}></Grid>
+      <Grid item xs={1} sm={2}></Grid>
     </Grid>
   );
 };

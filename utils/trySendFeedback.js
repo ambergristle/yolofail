@@ -18,7 +18,9 @@ const trySendFeedback = async (feedback) => {
     const response = await axios.post("/api/feedback", message);
     return response.status;
   } catch (error) {
-    console.log(error);
+    const status = error.response?.status;
+    if (status) console.error(status);
+    return false;
   }
 };
 
