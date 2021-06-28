@@ -1,5 +1,5 @@
 import { useField } from "formik";
-import { format, formatISO } from "date-fns";
+import { format, formatISO, sub } from "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { DatePicker } from "@material-ui/pickers";
@@ -14,6 +14,8 @@ const FormikDate = ({ placceholder, ...props }) => {
   const [field, meta, helpers] = useField(props);
   const { setValue } = helpers;
 
+  const minDate = sub(new Date(), { years: 5 });
+
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <DatePicker
@@ -22,10 +24,8 @@ const FormikDate = ({ placceholder, ...props }) => {
         onChange={(value) => setValue(formatISO(value))}
         autoOk
         disableToolbar="true"
-        invalidDateMessage="invalid date format"
         disableFuture="true"
-        minDateMessage="data unavailable"
-        maxDateMessage="data Uuavailable"
+        minDate={minDate}
         inputVariant="outlined"
         margin="dense"
         fullWidth

@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Markdown from "markdown-to-jsx";
 import { Container, Typography, Link, makeStyles } from "@material-ui/core";
 
@@ -26,9 +27,16 @@ const Legal = () => {
   };
 
   return (
-    <Container maxWidth="md" className={container} component="main">
-      <Markdown options={options}>{termsOfService}</Markdown>
-    </Container>
+    <>
+      <Head>
+        <title>yolofail: legal</title>
+        <meta name="description" content="please yeet responsibly" />
+        <meta name="keywords" content="yolofail, terms, service" />
+      </Head>
+      <Container maxWidth="md" className={container} component="main">
+        <Markdown options={options}>{termsOfService}</Markdown>
+      </Container>
+    </>
   );
 };
 

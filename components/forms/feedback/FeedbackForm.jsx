@@ -1,5 +1,7 @@
 import * as yup from "yup";
 
+import { Box } from "@material-ui/core";
+
 import { useStore, setSentFeedbackSelector } from "../../../utils/store";
 import trySendFeedback from "../../../utils/trySendFeedback";
 import FormikForm from "../formik-form/FormikForm";
@@ -54,7 +56,9 @@ const FeedbackForm = () => {
         rows={4}
         placeholder="i love this app!"
       />
-      <FormikButton label="send feedback" type="submit" color="primary" />
+      <Box p={1}>
+        <FormikButton label="send feedback" type="submit" color="primary" />
+      </Box>
     </FormikForm>
   );
 };

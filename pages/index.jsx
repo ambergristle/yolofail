@@ -9,6 +9,17 @@ import ValueChart from "../components/chart/ValueChart";
 import QueryForm from "../components/forms/QueryForm";
 import FeedbackFormBlock from "../components/forms/feedback/FeedbackFormBlock";
 
+// meta keywords
+const keywords = [
+  "yolofail",
+  "stock",
+  "asset",
+  "index",
+  "gains",
+  "yeet",
+  "wallstreetbets",
+];
+
 // chart selected asset performance against index (ivv), collect user feedback
 // set page meta, wrap chart/forms in grid (gutters for desktop ads)
 const ChartView = ({ systemError }) => {
@@ -17,6 +28,7 @@ const ChartView = ({ systemError }) => {
       <Head>
         <title>yolofail</title>
         <meta name="description" content="yeet on the market or nah?" />
+        <meta name="keywords" content={keywords.join(", ")} />
       </Head>
       <AdGrid>
         <ChartDetails />
