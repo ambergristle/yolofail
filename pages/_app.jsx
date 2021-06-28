@@ -1,10 +1,17 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { install as addResizeObserver } from "resize-observer";
+import NextApp from "next/app";
 import { ThemeProvider } from "@material-ui/core/styles";
 
 import * as gtag from "../utils/gtag";
-import { Provider, useHydrate } from "../utils/store";
+import getValues from "../utils/query/getValues";
+import {
+  useStore,
+  initializeStore,
+  Provider,
+  useHydrate,
+} from "../utils/store";
 import Layout from "../components/layout/Layout";
 import theme from "../styles/theme";
 import "../styles/global.css";
@@ -16,7 +23,7 @@ if (typeof window !== "undefined" && !window.ResizeObserver) {
 }
 
 // wrap all pages in theme and store providers, layout; handle jss, analytics
-const App = ({ Component, pageProps }) => {
+const App = ({ Component, pageProps, initialZustandState, systemError }) => {
   const router = useRouter();
 
   // remove server-side jss to preclude styling conflicts
@@ -33,7 +40,7 @@ const App = ({ Component, pageProps }) => {
   }, [router.events]);
 
   // pass existing? or new store to provider (passed from /index getServerSideProps)
-  const store = useHydrate(pageProps.initialZustandState);
+  const store = useHydrate(initialZustandState);
 
   return (
     <ThemeProvider theme={theme}>
@@ -44,6 +51,48 @@ const App = ({ Component, pageProps }) => {
       </Provider>
     </ThemeProvider>
   );
+};
+
+// initialize store server-side, populating with initial query and results
+App.getInitialProps = async (appContext) => {
+  // get initial next app props, required to use with _app
+  const appProps = await NextApp.getInitialProps(appContext);
+
+  const { req } = appContext.ctx;
+
+  // only return appProps if client-side routing (prevents store from being overwritten)
+  if (!req || req.url?.startsWith("/_next/data")) {
+    return { ...appProps };
+  }
+
+  // on first load/refresh, initialize store, get initial state
+  const zustandStore = initializeStore();
+  const initialZustandState = {
+    ...zustandStore.getState(),
+  };
+
+  try {
+    // fetch default query, results values
+    const initialResults = await getValues("GOOG", 100);
+
+    // overwrite default store with initial values if query successful
+    return {
+      initialZustandState: JSON.parse(
+        JSON.stringify({ ...initialZustandState, ...initialResults })
+      ),
+      ...appProps,
+    };
+  } catch ({ response: { message } }) {
+    // else return default store and error message
+    const systemError = { error: true, message };
+
+    return {
+      initialZustandState: JSON.parse(
+        JSON.stringify({ ...initialZustandState, systemError })
+      ),
+      ...appProps,
+    };
+  }
 };
 
 export default App;

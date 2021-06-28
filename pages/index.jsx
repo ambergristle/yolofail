@@ -40,44 +40,45 @@ const ChartView = ({ systemError }) => {
   );
 };
 
-// initialize store server-side, populating with initial query and results
-export const getServerSideProps = async ({ req }) => {
-  // return empty object if client-side routing (prevents store from being overwritten)
-  if (!req || req.url?.startsWith("/_next/data")) {
-    return { props: {} };
-  }
-
-  // on first load/refresh, initialize store, get initial state
-  const zustandStore = initializeStore();
-  const initialZustandState = {
-    ...zustandStore.getState(),
-  };
-
-  try {
-    // fetch default query, results values
-    const initialResults = await getValues("GOOG", 100);
-
-    // overwrite default store with initial values if query successful
-    return {
-      props: {
-        initialZustandState: JSON.parse(
-          JSON.stringify({ ...initialZustandState, ...initialResults })
-        ),
-        systemError: false,
-      },
-    };
-  } catch ({ response: { message } }) {
-    // else return default store and error message
-    const systemError = { error: true, message };
-
-    return {
-      props: {
-        initialZustandState: JSON.parse(
-          JSON.stringify({ ...initialZustandState, systemError })
-        ),
-      },
-    };
-  }
-};
+// // // testing move to _app
+// // initialize store server-side, populating with initial query and results
+// export const getServerSideProps = async ({ req }) => {
+//   // return empty object if client-side routing (prevents store from being overwritten)
+//   if (!req || req.url?.startsWith("/_next/data")) {
+//     return { props: {} };
+//   }
+//
+//   // on first load/refresh, initialize store, get initial state
+//   const zustandStore = initializeStore();
+//   const initialZustandState = {
+//     ...zustandStore.getState(),
+//   };
+//
+//   try {
+//     // fetch default query, results values
+//     const initialResults = await getValues("GOOG", 100);
+//
+//     // overwrite default store with initial values if query successful
+//     return {
+//       props: {
+//         initialZustandState: JSON.parse(
+//           JSON.stringify({ ...initialZustandState, ...initialResults })
+//         ),
+//         systemError: false,
+//       },
+//     };
+//   } catch ({ response: { message } }) {
+//     // else return default store and error message
+//     const systemError = { error: true, message };
+//
+//     return {
+//       props: {
+//         initialZustandState: JSON.parse(
+//           JSON.stringify({ ...initialZustandState, systemError })
+//         ),
+//       },
+//     };
+//   }
+// };
 
 export default ChartView;
