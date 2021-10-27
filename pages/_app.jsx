@@ -5,6 +5,7 @@ import NextApp from "next/app";
 import { ThemeProvider } from "@material-ui/core/styles";
 
 import * as gtag from "../utils/gtag";
+import * as fpix from "../utils/fpix";
 import getValues from "../utils/query/getValues";
 import {
   useStore,
@@ -26,6 +27,8 @@ if (typeof window !== "undefined" && !window.ResizeObserver) {
 const App = ({ Component, pageProps, initialZustandState, systemError }) => {
   const router = useRouter();
 
+  fpix.pageView();
+
   // remove server-side jss to preclude styling conflicts
   useEffect(() => {
     const jssStyles = document.querySelector("#jss-server-side");
@@ -34,7 +37,10 @@ const App = ({ Component, pageProps, initialZustandState, systemError }) => {
 
   // track route changes with ga (pass new url to ga)
   useEffect(() => {
-    const handleRouteChange = (url) => gtag.pageView(url);
+    const handleRouteChange = (url) => {
+      gtag.pageView(url);
+      fpix.pageView();
+    };
     router.events.on("routeChangeComplete", handleRouteChange);
     return router.events.off("routeChangeComplete", handleRouteChange);
   }, [router.events]);
