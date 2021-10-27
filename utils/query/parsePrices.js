@@ -14,7 +14,7 @@ const parseAdjustedPrices = (prices, amount) => {
 
   const initialValue = values[0];
   const currentValue = values[values.length - 1];
-  const percentChange = currentValue / initialValue;
+  const percentChange = (currentValue / initialValue) * 100;
 
   return { labels, values, currentValue, percentChange };
 };
