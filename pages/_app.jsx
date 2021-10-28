@@ -80,7 +80,7 @@ App.getInitialProps = async (appContext) => {
 
   try {
     // fetch default query, results values
-    const initialResults = await getValues("GOOG", 100);
+    const initialResults = await getValues("GME", 100);
 
     // overwrite default store with initial values if query successful
     return {
