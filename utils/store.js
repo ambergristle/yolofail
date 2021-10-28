@@ -13,7 +13,7 @@ const initialState = {
   systemError: { error: false, message: "" },
   sentFeedback: false,
   query: {
-    symbol: "GOOG",
+    symbol: "GME",
     amount: 100,
     date: new Date(),
   },

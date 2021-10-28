@@ -2,6 +2,7 @@ import * as yup from "yup";
 import sub from "date-fns/sub";
 import { Grid, InputAdornment, makeStyles } from "@material-ui/core";
 
+import * as fpix from "../../utils/fpix";
 import tryQuery from "../../utils/query/tryQuery";
 import { useStore, queryFormSelectors as selectors } from "../../utils/store";
 import FormikForm from "./formik-form/FormikForm";
@@ -40,6 +41,9 @@ const QueryForm = () => {
     setQuery({ symbol, amount, date });
 
     try {
+      // register search event
+      fpix.event("Search", { search_string: symbol });
+
       // get results from attempted query
       const results = await tryQuery({ symbol, amount, date });
 
@@ -58,6 +62,8 @@ const QueryForm = () => {
     toggleLoading();
   };
 
+  const handleSubmit = () => {};
+
   return (
     <FormikForm
       initialValues={initialValues}
@@ -70,7 +76,7 @@ const QueryForm = () => {
             name="symbol"
             type="text"
             label="symbol"
-            placeholder="GOOG"
+            placeholder="GME"
           />
         </Grid>
         <Grid item xs={12} sm={4}>
