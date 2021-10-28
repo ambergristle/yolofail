@@ -1,7 +1,7 @@
 export const FB_PIXEL_ID = process.env.FB_PIXEL_ID;
 
 // set fbq instance
-export const pageview = () => {
+export const pageView = () => {
   window.fbq("track", "PageView");
 };
 
