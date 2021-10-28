@@ -1,19 +1,19 @@
 import NextDocument, { Html, Head, Main, NextScript } from "next/document";
 import { Children } from "react";
 import { ServerStyleSheets } from "@material-ui/core/styles";
-import { GTag, FBPixel } from "../components/analytics";
+import { GTagNoScript, FBPixelNoScript } from "../components/analytics";
 import theme from "../styles/theme";
 
-// import google analytics/adsense and facebook pixel scripts
+// handle noscript case for gtag and fb pixel
 class Document extends NextDocument {
   render() {
     return (
       <Html lang="en">
         <Head>
-          <GTag />
-          <FBPixel />
+          <FBPixelNoScript />
         </Head>
         <body>
+          <GTagNoScript />
           <Main />
           <NextScript />
         </body>

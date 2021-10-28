@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { FB_PIXEL_ID } from "../../utils/fpix";
 
 // fb pixel scripts
-const FBPixel = () => (
+export const FBPixelScript = () => (
   <Fragment>
     <script
       dangerouslySetInnerHTML={{
@@ -34,6 +34,11 @@ const FBPixel = () => (
         `,
       }}
     />
+  </Fragment>
+);
+
+export const FBPixelNoScript = () => (
+  <Fragment>
     <noscript>
       <img
         height="1"

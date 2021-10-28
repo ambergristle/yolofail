@@ -1,4 +1,4 @@
-import GTag from "./GTag";
-import FBPixel from "./FBPixel";
+import { GTagScript, GTagNoScript } from "./GTag";
+import { FBPixelScript, FBPixelNoScript } from "./FBPixel";
 
-export { GTag, FBPixel };
+export { GTagScript, GTagNoScript, FBPixelScript, FBPixelNoScript };

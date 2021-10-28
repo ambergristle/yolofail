@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { GA_TRACKING_ID } from "../../utils/gtag";
 
 // google tag manager and ads scripts
-const GTag = () => (
+export const GTagScript = () => (
   <Fragment>
     <script
       async
@@ -25,5 +25,18 @@ const GTag = () => (
       async
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
     />
+  </Fragment>
+);
+
+export const GTagScript = () => (
+  <Fragment>
+    <noscript>
+      <iframe
+        src={`https://www.googletagmanager.com/ns.html?id=${GA_TRACKING_ID}`}
+        height="0"
+        width="0"
+        style={{ display: "none", visibility: "hidden" }}
+      />
+    </noscript>
   </Fragment>
 );
