@@ -28,7 +28,7 @@ export const GTagScript = () => (
   </Fragment>
 );
 
-export const GTagScript = () => (
+export const GTagNoScript = () => (
   <Fragment>
     <noscript>
       <iframe
