@@ -27,7 +27,8 @@ if (typeof window !== "undefined" && !window.ResizeObserver) {
 const App = ({ Component, pageProps, initialZustandState, systemError }) => {
   const router = useRouter();
 
-  fpix.pageView();
+  // block on ssr
+  if (typeof window !== "undefined") fpix.pageView();
 
   // remove server-side jss to preclude styling conflicts
   useEffect(() => {
