@@ -5,8 +5,31 @@ export const options = {
   responsive: true,
   maintainAspectRatio: false,
   plugins: {
+    // title: {
+    //   text: "$1546.95",
+    //   display: true,
+    //   align: "start",
+    //   padding: { bottom: 0 },
+    //   font: {
+    //     size: 60,
+    //     weight: "lighter",
+    //     family: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+    //   },
+    //   color: "rgba(0,0,0,1)",
+    // },
+    // subtitle: {
+    //   text: "+$1406.62 (+1406.62%) against S&P500",
+    //   display: true,
+    //   align: "start",
+    //   padding: { top: 0 },
+    //   font: {
+    //     size: 20,
+    //     family: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+    //   },
+    //   color: "rgba(0,0,0,1)",
+    // },
     legend: { display: false },
-    tooltips: { enabled: false },
+    tooltip: { enabled: false },
   },
   scales: {
     x: {

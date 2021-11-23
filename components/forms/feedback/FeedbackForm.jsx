@@ -20,20 +20,21 @@ const validationSchema = yup.object({
 });
 
 // collect user feedback (only permit once per session)
-const FeedbackForm = () => {
+const FeedbackForm = ({ hideForm }) => {
   // get sentFeedback update function from store
   const sentFeedback = useStore(setSentFeedbackSelector);
 
-  // attempt to send feedback, set sentFeedBack if successful
+  // attempt to send feedback, set sentFeedBack and hide form if successful
   // display error message on failure
   const sendFeedback = async (values, { setSubmitting }) => {
     const sent = await trySendFeedback(values);
     if (sent) {
       sentFeedback();
+      hideForm();
     } else {
       setFieldError("message", "please try again");
     }
-    return setSubmitting(false);
+    setSubmitting(false);
   };
 
   return (
