@@ -89,7 +89,7 @@ App.getInitialProps = async (appContext) => {
       ),
       ...appProps,
     };
-  } catch ({ response: { message } }) {
+  } catch ({ message }) {
     // else return default store and error message
     const systemError = { error: true, message };
 

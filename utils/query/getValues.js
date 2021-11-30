@@ -4,6 +4,7 @@ import getPrices from "./getPrices";
 import parseAdjustedPrices from "./parsePrices";
 import packageValues from "./packageValues";
 import { newError, ApiError } from "../errors";
+import sendErrorAlert from "../sendErrorAlert";
 
 // set default date to today - 1 year
 const newDate = sub(new Date(), { years: 1 });
@@ -37,7 +38,7 @@ const getValues = async (symbol, amount, date = newDate) => {
 
     if (parsedIndex.labels.length !== parsedAsset.labels.length) {
       // throw new error, sending alert to email, asset-specific msg to client
-      sendErrorAlert(`Asset Data Incomplete: ${symbol}`);
+      // sendErrorAlert(`Asset Data Incomplete: ${symbol}`);
       throw new ApiError(418);
     }
 
@@ -57,10 +58,10 @@ const getValues = async (symbol, amount, date = newDate) => {
     // // escalate 500
     if (status) {
       if (status !== 429) {
-        throw new ApiError(error.status);
+        throw new ApiError(status);
       } else {
         // is this the right status code?
-        sendErrorAlert("Rate Limit Exceeded");
+        // sendErrorAlert("Rate Limit Exceeded");
       }
     }
 

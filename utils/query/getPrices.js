@@ -32,7 +32,7 @@ const getPrices = async (symbol, date, shift = false, prices = []) => {
 
     if (error.response) {
       const queryErrors = [404, 422, 429];
-      const { status, statusText } = error.response;
+      const { status } = error.response;
 
       // if (queryErrors.includes(status)) throw newError(status);
       if (queryErrors.includes(status)) {

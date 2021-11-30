@@ -51,7 +51,7 @@ const QueryForm = () => {
       if (results) setResults(results);
     } catch (error) {
       if (error.status) {
-        const { status, message } = error.response;
+        const { status, message } = error;
 
         // if error < 500, user error, else system error
         if (status === 404) {
@@ -59,14 +59,12 @@ const QueryForm = () => {
         } else {
           setSystemError(message);
         }
+      } else {
+        setSystemError("sorry, we're experiencing technical difficulties");
       }
-
-      setSystemError("sorry, we're experiencing technical difficulties");
     }
     toggleLoading();
   };
-
-  const handleSubmit = () => {};
 
   return (
     <FormikForm
