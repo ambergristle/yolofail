@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { newError } from "../errors";
+import { newError, ProviderError } from "../errors";
 
 // request price data from provider, recursively call to handle pagination
 const getPrices = async (symbol, date, shift = false, prices = []) => {
@@ -31,21 +31,21 @@ const getPrices = async (symbol, date, shift = false, prices = []) => {
     // if symbol not found, return 404
 
     if (error.response) {
-      const queryErrors = [404, 422];
+      const queryErrors = [404, 422, 429];
       const { status, statusText } = error.response;
 
-      console.log({ method, url, params, status, statusText });
-
-      if (queryErrors.includes(status)) throw newError(status);
-
-      throw newError(500);
+      // if (queryErrors.includes(status)) throw newError(status);
+      if (queryErrors.includes(status)) {
+        console.log({ method, url, params, status, statusText });
+        throw new ProviderError(status);
+      }
     }
 
-    // if api key, rate limit, or other issue, return 500
-    // send warning email?
+    // if api key or other issue, return 500
     console.log(error);
 
-    throw newError(500);
+    // throw newError(500);
+    throw new ProviderError(500);
   }
 };
 

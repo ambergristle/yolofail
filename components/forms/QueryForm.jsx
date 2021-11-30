@@ -50,14 +50,18 @@ const QueryForm = () => {
       // if successful, store results
       if (results) setResults(results);
     } catch (error) {
-      const { status, message } = error.response;
+      if (error.status) {
+        const { status, message } = error.response;
 
-      // if error < 500, user error, else system error
-      if (status < 500) {
-        setFieldError("symbol", message);
-      } else {
-        setSystemError(message);
+        // if error < 500, user error, else system error
+        if (status === 404) {
+          setFieldError("symbol", message);
+        } else {
+          setSystemError(message);
+        }
       }
+
+      setSystemError("sorry, we're experiencing technical difficulties");
     }
     toggleLoading();
   };

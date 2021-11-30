@@ -5,3 +5,17 @@ export const newError = (status, message) => ({
     ...(message && { message }),
   },
 });
+
+export class ProviderError extends Error {
+  constructor(status) {
+    super("");
+    this.status = status;
+  }
+}
+
+export class ApiError extends Error {
+  constructor(status, message) {
+    super(message || "");
+    this.status = status;
+  }
+}

@@ -1,4 +1,5 @@
 import getValues from "../../utils/query/getValues";
+import sendErrorAlert from "../../utils/sendErrorAlert";
 
 // execute api request to provider
 const query = async (req, res) => {
@@ -12,10 +13,8 @@ const query = async (req, res) => {
     return res.status(200).json({ details, chartData });
   } catch (error) {
     // return provider error status if present, else 500
-    const status = error.response?.status;
-    if (status) return res.status(status).end();
 
-    return res.status(500).end();
+    return res.status(error.status || 500).end();
   }
 };
 

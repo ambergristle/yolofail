@@ -3,7 +3,7 @@ import { format, formatISO, sub, set } from "date-fns";
 import getPrices from "./getPrices";
 import parseAdjustedPrices from "./parsePrices";
 import packageValues from "./packageValues";
-import { newError } from "../errors";
+import { newError, ApiError } from "../errors";
 
 // set default date to today - 1 year
 const newDate = sub(new Date(), { years: 1 });
@@ -35,6 +35,12 @@ const getValues = async (symbol, amount, date = newDate) => {
     const parsedIndex = parseAdjustedPrices(rawIndex, amount);
     const parsedAsset = parseAdjustedPrices(rawAsset, amount);
 
+    if (parsedIndex.labels.length !== parsedAsset.labels.length) {
+      // throw new error, sending alert to email, asset-specific msg to client
+      sendErrorAlert(`Asset Data Incomplete: ${symbol}`);
+      throw new ApiError(418);
+    }
+
     // package parsed data for chart and details
     const results = packageValues(parsedIndex, parsedAsset);
 
@@ -43,7 +49,22 @@ const getValues = async (symbol, amount, date = newDate) => {
       ...results,
     };
   } catch (error) {
-    throw newError(error.response?.status);
+    // throw newError(error.response?.status);
+    const status = error.status;
+
+    // if getPrices error && not rate limit, escalate status
+    // // else if 429, send alert &&
+    // // escalate 500
+    if (status) {
+      if (status !== 429) {
+        throw new ApiError(error.status);
+      } else {
+        // is this the right status code?
+        sendErrorAlert("Rate Limit Exceeded");
+      }
+    }
+
+    throw new ApiError(500);
   }
 };
 
