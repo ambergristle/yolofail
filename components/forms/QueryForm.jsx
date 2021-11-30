@@ -35,7 +35,9 @@ const QueryForm = () => {
   const setResults = useStore(selectors.setResults);
 
   // execute query, store values, toggle loading spinner during request
-  const queryValues = async ({ symbol, amount, date }, { setFieldError }) => {
+  const queryValues = async (values, formikBag) => {
+    const { symbol, amount, date } = values;
+
     resetSystemError();
     toggleLoading();
     setQuery({ symbol, amount, date });
@@ -49,21 +51,26 @@ const QueryForm = () => {
 
       // if successful, store results
       if (results) setResults(results);
+      formikBag.resetForm({ values });
     } catch (error) {
       if (error.status) {
         const { status, message } = error;
 
         // if error < 500, user error, else system error
         if (status === 404) {
-          setFieldError("symbol", message);
+          symbolError = message;
+          formikBag.setFieldError("symbol", message);
         } else {
           setSystemError(message);
+          formikBag.resetForm({ values });
         }
       } else {
         setSystemError("sorry, we're experiencing technical difficulties");
+        formikBag.resetForm({ values });
       }
+    } finally {
+      toggleLoading();
     }
-    toggleLoading();
   };
 
   return (

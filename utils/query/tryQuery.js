@@ -17,12 +17,10 @@ const tryQuery = async ({ symbol, amount, date }) => {
       if (status === 418)
         throw new ApiError(500, "sorry, data for that stock is incomplete");
 
-      // if (status < 500) throw newError(404, "symbol not found");
       if (status < 500) throw new ApiError(404, "stock not found");
     }
 
     // throw server error
-    // throw newError(500, "sorry, we're experiencing technical difficulties");
     throw new ApiError(500, "sorry, we're experiencing technical difficulties");
   }
 };

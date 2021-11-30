@@ -32,9 +32,8 @@ const getPrices = async (symbol, date, shift = false, prices = []) => {
 
     if (error.response) {
       const queryErrors = [404, 422, 429];
-      const { status } = error.response;
+      const { status, statusText } = error.response;
 
-      // if (queryErrors.includes(status)) throw newError(status);
       if (queryErrors.includes(status)) {
         console.log({ method, url, params, status, statusText });
         throw new ProviderError(status);

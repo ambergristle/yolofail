@@ -38,7 +38,7 @@ const getValues = async (symbol, amount, date = newDate) => {
 
     if (parsedIndex.labels.length !== parsedAsset.labels.length) {
       // throw new error, sending alert to email, asset-specific msg to client
-      // sendErrorAlert(`Asset Data Incomplete: ${symbol}`);
+      sendErrorAlert(`Asset Data Incomplete: ${symbol}`);
       throw new ApiError(418);
     }
 
@@ -50,7 +50,6 @@ const getValues = async (symbol, amount, date = newDate) => {
       ...results,
     };
   } catch (error) {
-    // throw newError(error.response?.status);
     const status = error.status;
 
     // if getPrices error && not rate limit, escalate status
@@ -61,7 +60,7 @@ const getValues = async (symbol, amount, date = newDate) => {
         throw new ApiError(status);
       } else {
         // is this the right status code?
-        // sendErrorAlert("Rate Limit Exceeded");
+        sendErrorAlert("Rate Limit Exceeded");
       }
     }
 
