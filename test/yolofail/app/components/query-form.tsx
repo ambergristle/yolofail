@@ -5,6 +5,17 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/popover";
 import { DatePickerTrigger } from "@/components/date-picker";
 import { Calendar } from "@/components/calendar";
 import { Button } from "@/components/button";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import wretch from 'wretch'
+
+const QueryFormValues = z.object({
+  symbol: z.string(),
+  amount: z.number().min(1), // max?
+  buyDate: z.date(),
+})
+
+type QueryFormValues = z.infer<typeof QueryFormValues>;
 
 const getDefaultValues = () => {
   return {
@@ -14,11 +25,24 @@ const getDefaultValues = () => {
   }
 }
 
+async function queryTimeSeries(payload: QueryFormValues) {
+  const result = await wretch('/api/time-series')
+    .post(payload)
+    .json()
+    .catch(console.error)
+  // parse n shit
+}
+
 export default function QueryForm() {
 
   const formProps = useForm({
+    resolver: zodResolver(QueryFormValues),
     defaultValues: getDefaultValues(),
   })
+
+  async function onSubmit(values: QueryFormValues) {
+    await queryTimeSeries(values)
+  }
 
   return (
     <Form {...formProps}>

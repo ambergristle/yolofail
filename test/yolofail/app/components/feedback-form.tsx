@@ -4,28 +4,51 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/
 import { Input } from "@/components/input";
 import { Button } from "@/components/button";
 
+import wretch from 'wretch'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
+
+import { getLocale } from './locale'
+
+const locale = getLocale()
+
+const FeedbackValues = z.object({
+  email: z.string().email(),
+  message: z.string().min(500)
+})
+
+type FeedbackValues = z.infer<typeof FeedbackValues>;
+
+async function sendFeedbackRequest(payload: FeedbackValues) {
+  return wretch('/api/feedback')
+    .post(payload)
+    .json()
+    .catch(console.error)
+}
+
 export function FeedbackForm() {
 
   const formProps = useForm({
+    resolver: zodResolver(FeedbackValues),
     defaultValues: {
       email: '',
       message: '',
     },
   })
 
-  function onSubmit(values: { email: string; message: string }) {
-    console.log(values)
+  async function onSubmit(values: FeedbackValues) {
+    await sendFeedbackRequest(values)
   }
 
   return (
     <Dialog>
       <DialogTrigger>
-        {'feedback'}
+        {locale.feedback}
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
-            {'feedback form'}
+            {locale.feedbackForm}
           </DialogTitle>
         </DialogHeader>
         <form 
@@ -37,9 +60,9 @@ export function FeedbackForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{'email'}</FormLabel>
+                <FormLabel>{locale.email}</FormLabel>
                 <FormControl>
-                  <Input type="email" placeholder={'example@pm.me'} {...field} />
+                  <Input type="email" placeholder={locale.emailPlaceholder} {...field} />
                 </FormControl>
               </FormItem>
             )}
@@ -48,15 +71,15 @@ export function FeedbackForm() {
             name="message"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{'feedback'}</FormLabel>
+                <FormLabel>{locale.feedback}</FormLabel>
                 <FormControl>
-                  <Input placeholder={'i love this app!'} {...field} />
+                  <Input placeholder={locale.messagePlaceholder} {...field} />
                 </FormControl>
               </FormItem>
             )}
           />
           <Button type="submit">
-            {'shout into the void'}
+            {locale.send}
           </Button>
         </form>
       </DialogContent>
