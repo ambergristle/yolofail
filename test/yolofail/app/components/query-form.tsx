@@ -22,8 +22,9 @@ export default function QueryForm() {
 
   return (
     <Form {...formProps}>
-      <form 
+      <form
         className="space-y-8" 
+        noValidate
         onSubmit={formProps.handleSubmit(onSubmit, console.error)}
       >
         <FormField
@@ -44,7 +45,7 @@ export default function QueryForm() {
               <FormLabel>{'symbol'}</FormLabel>
               <FormControl>
                 {/* start adornment? */}
-                <Input placeholder={'100.00'} {...field} />
+                <Input type="number" placeholder={'100.00'} {...field} />
               </FormControl>
             </FormItem>
           )}
