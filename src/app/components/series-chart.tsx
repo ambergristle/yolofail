@@ -26,15 +26,15 @@ export const SeriesChart = ({
 
   return (
     <div>
-      <Typography variant="h2">
+      <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0">
         {formatCurrency(currentValue)}
-      </Typography>
-      <Typography>
+      </h2>
+      <p className="leading-7 text-muted-foreground">
         {formatCurrency(currentValue)}
         <span>
           {'against S&P500'}
         </span>
-      </Typography>
+      </p>
       <div className="h-72">
         <AreaChart
 
