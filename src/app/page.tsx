@@ -1,3 +1,4 @@
+import Header from "./components/header"
 import { SeriesChart } from "./components/series-chart"
 
 const timeSeries = [
@@ -28,7 +29,8 @@ export default function Home() {
   // get data from store
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="w-screen flex flex-col items-center p-24">
+      <Header data={timeSeries} />
       <SeriesChart data={timeSeries} />
     </main>
   )

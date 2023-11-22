@@ -1,8 +1,8 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/src/components/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/dialog";
 import { useForm } from "react-hook-form";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/src/components/form";
-import { Input } from "@/src/components/input";
-import { Button } from "@/src/components/button";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/form";
+import { Input } from "@/components/input";
+import { Button } from "@/components/button";
 
 import wretch from 'wretch'
 import { zodResolver } from '@hookform/resolvers/zod'
