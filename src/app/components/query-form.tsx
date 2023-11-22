@@ -1,10 +1,10 @@
 import { useForm } from "react-hook-form";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/form";
-import { Input } from "@/components/input";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/popover";
-import { DatePickerTrigger } from "@/components/date-picker";
-import { Calendar } from "@/components/calendar";
-import { Button } from "@/components/button";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "@/src/components/form";
+import { Input } from "@/src/components/input";
+import { Popover, PopoverContent, PopoverTrigger } from "@/src/components/popover";
+import { DatePickerTrigger } from "@/src/components/date-picker";
+import { Calendar } from "@/src/components/calendar";
+import { Button } from "@/src/components/button";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import wretch from 'wretch'

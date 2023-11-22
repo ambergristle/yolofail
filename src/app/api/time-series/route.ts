@@ -1,4 +1,4 @@
-import { handleRoute } from "@/lib/something";
+import { handleRoute } from "@/src/lib/something";
 import { z } from "zod";
 
 export default handleRoute({
