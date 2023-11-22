@@ -1,0 +1,44 @@
+{
+  "name": "yolofail",
+  "version": "1.0.0",
+  "author": "ambergristle",
+  "repository": "https://github.com/ambergristle/yolofail",
+  "homepage": "https://www.yolofail.com",
+  "description": "chart an asset's performance against the market (index)",
+  "keywords": [
+    "stocks",
+    "chart"
+  ],
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start -H 0.0.0.0 -p ${PORT:-8080}"
+  },
+  "dependencies": {
+    "@date-io/core": "^2.10.11",
+    "@date-io/date-fns": "1.x",
+    "@material-ui/core": "^4.11.4",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.58",
+    "@material-ui/pickers": "^3.3.10",
+    "@sendgrid/mail": "^7.4.5",
+    "axios": "^0.21.1",
+    "chart.js": "^3.6.0",
+    "date-fns": "2.18.0",
+    "formik": "^2.2.9",
+    "markdown-to-jsx": "^7.1.3",
+    "next": "10.2.3",
+    "prop-types": "15.6.0",
+    "react": "17.0.2",
+    "react-chartjs-2": "^3.3.0",
+    "react-dom": "17.0.2",
+    "resize-observer": "^1.0.2",
+    "yup": "^0.32.9",
+    "zustand": "^3.5.2"
+  },
+  "devDependencies": {
+    "raw-loader": "^4.0.2"
+  }
+}
