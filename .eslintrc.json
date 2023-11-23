@@ -1,3 +1,58 @@
 {
-  "extends": "next/core-web-vitals"
+  "root": true,
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:tailwindcss/recommended"
+  ],
+  "plugins": [
+    "unused-imports",
+    "tailwindcss"
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "rules": {
+    "@next/next/no-html-link-for-pages": "off", // what does this do?
+    "tailwindcss/no-custom-classname": "off",
+    "tailwindcss/classnames-order": "error",
+
+    "comma-dangle": ["warn", "always-multiline"],
+    "comma-spacing": ["warn", { "after": true }],
+    "eqeqeq": ["error", "always"],
+    "indent": ["warn", 2, { "SwitchCase": 2 }],
+    "key-spacing": ["warn", { "afterColon": true }],
+    "max-len": ["warn", { "code": 120 }],
+    "no-extra-boolean-cast": "off",
+    "no-nested-ternary": "error",
+    "no-multi-spaces": "warn",
+    "no-redeclare": "off",
+    "@typescript-eslint/no-redeclare": "error",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-empty-interface": ["off"], 
+    "@typescript-eslint/no-unused-vars": ["warn", { "args": "after-used", "ignoreRestSiblings": true }],
+    "object-curly-spacing": ["warn", "always"],
+    "quotes": ["warn", "single"],
+    "semi": ["error", "always"],
+    "space-in-parens": ["warn", "never"],
+    "spaced-comment": ["warn", "always", { "markers": ["/"] }],
+    "unused-imports/no-unused-imports": "warn",
+    "eol-last": 2
+  },
+
+  "settings": {
+    "tailwindcss": {
+      "callees": ["cn", "cva"],
+      "config": "tailwind.config.ts"
+    },
+    "next": {
+      "rootDir": ["src/*/"]
+    }
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "parser": "@typescript-eslint/parser"
+    }
+  ]
 }
