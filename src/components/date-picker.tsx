@@ -7,9 +7,17 @@ import { CalendarIcon } from "@radix-ui/react-icons"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/button"
 
-function DatePickerTrigger({ value, ...props }: { value: Date | undefined }) {
+type DatePickerTriggerProps = { 
+  value: Date | undefined 
+}
+
+const DatePickerTrigger = React.forwardRef<HTMLButtonElement, DatePickerTriggerProps>(({ 
+  value, 
+  ...props 
+}, ref) => {
   return (
     <Button
+      ref={ref}
       variant="outline"
       className={cn(
         "w-[200px] justify-start text-left font-normal",
@@ -21,7 +29,7 @@ function DatePickerTrigger({ value, ...props }: { value: Date | undefined }) {
       {value ? format(value, "PP") : <span>{'Pick a date'}</span>}
     </Button>
   )
-}
+})
 
 export {
   DatePickerTrigger
