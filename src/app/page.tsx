@@ -24,7 +24,7 @@ const timeSeries = [
   }
 ]
 
-export default function Home() {
+const Home = () => {
 
   // get data from store
 
@@ -35,3 +35,5 @@ export default function Home() {
     </main>
   )
 }
+
+export default Home;

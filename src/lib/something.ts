@@ -1,13 +1,13 @@
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 
-function handleError(req: NextApiRequest, res: NextApiResponse, error: unknown) {
+const handleError = (req: NextApiRequest, res: NextApiResponse, error: unknown) => {
   return res.status(500).end()
 }
 
 const requestMethods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'] as const;
 type RequestMethod = typeof requestMethods[number];
 
-function isRequestMethod(value: unknown): value is RequestMethod {
+const isRequestMethod = (value: unknown): value is RequestMethod => {
   return requestMethods.includes(value as any);
 };
 
@@ -25,7 +25,7 @@ type RouteOptions = {
   middleware?: Middleware;
 }
 
-export function handleRoute(handlers: RouteMethods, options: RouteOptions = {}): NextApiHandler {
+export const handleRoute = (handlers: RouteMethods, options: RouteOptions = {}): NextApiHandler => {
 
   return async (req, res) => {
     try {

@@ -5,3 +5,17 @@ export const metadata: Metadata = {
   description: 'please yeet responsibly',
   keywords: ['yolofail', 'terms'],
 }
+
+const Layout = ({
+  children,
+}: {
+  children: React.ReactNode
+}) => {
+  return (
+    <>
+      {children}
+    </>
+  )
+}
+
+export default Layout

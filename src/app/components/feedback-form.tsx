@@ -19,14 +19,14 @@ const FeedbackValues = z.object({
 
 type FeedbackValues = z.infer<typeof FeedbackValues>;
 
-async function sendFeedbackRequest(payload: FeedbackValues) {
+const sendFeedbackRequest = async (payload: FeedbackValues) => {
   return wretch('/api/feedback')
     .post(payload)
     .json()
     .catch(console.error)
 }
 
-export function FeedbackForm() {
+export const FeedbackForm = () => {
 
   const formProps = useForm({
     resolver: zodResolver(FeedbackValues),
@@ -36,7 +36,7 @@ export function FeedbackForm() {
     },
   })
 
-  async function onSubmit(values: FeedbackValues) {
+  const onSubmit = async (values: FeedbackValues) => {
     await sendFeedbackRequest(values)
   }
 

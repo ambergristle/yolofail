@@ -3,7 +3,7 @@ import { z } from "zod";
 
 mail.setApiKey(process.env.SENDGRID_API_KEY);
 
-export async function sendEmail(data: { from: string; message: string; }) {
+export const sendEmail = async (data: { from: string; message: string; }) => {
   try {
     const { from, text } = z.object({ 
       from: z.string().email(),

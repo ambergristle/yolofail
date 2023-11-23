@@ -20,7 +20,7 @@ const Results = z.object({
 
 type Results = z.infer<typeof Results>;
 
-async function something({
+const something = async ({
   symbol,
   buyDate,
   offset,
@@ -28,7 +28,7 @@ async function something({
   symbol: string;
   buyDate: string;
   offset?: number;
-}) {
+}) =>{
 
   const series: any[] = [];
 
@@ -57,7 +57,7 @@ async function something({
 }
 
 
-function somethingElse(series: Results['data'], dollarSpend: number) {
+const somethingElse = (series: Results['data'], dollarSpend: number) => {
   if (!series.length) return series;
 
   const { adj_close: purchasePrice } = series[0];
