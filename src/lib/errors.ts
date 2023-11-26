@@ -1,4 +1,4 @@
-
+/** @todo */
 class RequestError extends Error {
   public readonly status: number;
 

@@ -1,4 +1,4 @@
-
+/** @todo */
 type Variant = 'h1' | 'h2' | 'h3' | 'h4' | 'p' | 'blockquote' | 'code'
 
 const variants = {
