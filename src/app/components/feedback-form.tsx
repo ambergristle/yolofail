@@ -34,9 +34,13 @@ const sendFeedbackRequest = async (payload: FeedbackValues) => {
     .catch(console.error)
 }
 
+/** 
+ * @todo cleanup 
+ * @todo mutation/alert
+ */
 export const FeedbackForm = () => {
 
-  const formProps = useForm({
+  const formProps = useForm<FeedbackValues>({
     resolver: zodResolver(FeedbackValues),
     defaultValues: {
       email: '',
@@ -44,13 +48,16 @@ export const FeedbackForm = () => {
     },
   })
 
-  const onSubmit = async (values: FeedbackValues) => {
-    await sendFeedbackRequest(values)
-  }
+  const onSubmit = formProps.handleSubmit(
+    async (values) => {
+      await sendFeedbackRequest(values)
+    }, 
+    console.error
+  )
 
   return (
     <Dialog>
-      <DialogTrigger>
+      <DialogTrigger className="underline-offset-4 hover:underline">
         {'feedback'}
       </DialogTrigger>
       <DialogContent>
@@ -63,7 +70,7 @@ export const FeedbackForm = () => {
         <form 
          className="space-y-8" 
           noValidate
-          onSubmit={formProps.handleSubmit(onSubmit, console.error)}
+          onSubmit={onSubmit}
           >
           <FormField
             name="email"

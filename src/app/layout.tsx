@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from "next/link";
+import { FeedbackForm } from './components/feedback-form';
 import '@/styles/globals.css'
 
 export const metadata: Metadata = {
@@ -30,9 +31,7 @@ const RootLayout = ({
           <Link href="/legal" className="underline-offset-4 hover:underline">
             {'legal'}
           </Link>
-          <button className="underline-offset-4 hover:underline">
-            {'feedback'}
-          </button>
+          <FeedbackForm />
         </footer>
       </body>
     </html>

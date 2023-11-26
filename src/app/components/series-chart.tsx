@@ -2,10 +2,6 @@
 
 import { AreaChart } from "@tremor/react";
 
-const formatPoint = (value: number) => {
-  return value.toString()
-}
-
 type SeriesChartProps = {
   data: {
       date: string;
@@ -22,7 +18,7 @@ export const SeriesChart = ({ data }: SeriesChartProps) => {
       index="date"
       categories={["index", "asset"]}
       colors={["gray", "green"]}
-      valueFormatter={formatPoint}
+      valueFormatter={(value) => value.toString()}
       showAnimation
     />
   );

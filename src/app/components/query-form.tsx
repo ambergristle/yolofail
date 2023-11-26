@@ -1,18 +1,18 @@
 "use client"
 
+import { useRouter } from "next/router";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 
+import { Button } from "@/components/button";
 import { Calendar } from "@/components/calendar";
 import { DatePickerTrigger } from "@/components/date-picker";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/form";
 import { Input } from "@/components/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/popover";
-import { redirect } from "next/navigation";
-import { Button } from "@/components/button";
 
-import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 
 const QueryFormValues = z.object({
   symbol: z.string(),
@@ -22,6 +22,7 @@ const QueryFormValues = z.object({
 
 type QueryFormValues = z.infer<typeof QueryFormValues>;
 
+/** @todo hoist + drill */
 const getDefaultValues = () => {
   return {
     symbol: 'GME',
@@ -31,13 +32,16 @@ const getDefaultValues = () => {
 }
 
 const QueryForm = () => {
+  
   const formProps = useForm({
     resolver: zodResolver(QueryFormValues),
     defaultValues: getDefaultValues(),
   })
 
+  const router = useRouter()
+
   const onSubmit = (values: QueryFormValues) => {
-    redirect(`/${values.symbol}`)
+    router.push(`/${values.symbol}`)
   }
 
   return (

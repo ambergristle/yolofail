@@ -5,6 +5,11 @@ import QueryForm from "./components/query-form"
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
+/**
+ * @todo partial return
+ * @todo add amount
+ * @todo default
+ */
 const parseSearchParams = (searchParams: SearchParams | undefined) => {
   const results = z.object({
     symbol: z.string().optional(),
@@ -68,7 +73,7 @@ const Home = async ({
     </header>
     <div className="w-full h-72">
       <SeriesChart data={data}/>
-      </div>
+    </div>
     </main>
   )
 }
