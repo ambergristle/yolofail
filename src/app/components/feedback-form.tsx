@@ -1,16 +1,24 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/dialog";
 import { useForm } from "react-hook-form";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/form";
-import { Input } from "@/components/input";
-import { Button } from "@/components/button";
-
-import wretch from 'wretch'
 import { zodResolver } from '@hookform/resolvers/zod'
+import wretch from 'wretch'
 import { z } from 'zod'
 
-import { getLocale } from './locale'
-
-const locale = getLocale()
+import { Button } from "@/components/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from "@/components/dialog";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel
+} from "@/components/form";
+import { Input } from "@/components/input";
 
 const FeedbackValues = z.object({
   email: z.string().email(),
@@ -43,14 +51,15 @@ export const FeedbackForm = () => {
   return (
     <Dialog>
       <DialogTrigger>
-        {locale.feedback}
+        {'feedback'}
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
-            {locale.feedbackForm}
+            {'feedback form'}
           </DialogTitle>
         </DialogHeader>
+        <Form {...formProps}>
         <form 
          className="space-y-8" 
           noValidate
@@ -60,9 +69,9 @@ export const FeedbackForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{locale.email}</FormLabel>
+                <FormLabel>{'email'}</FormLabel>
                 <FormControl>
-                  <Input type="email" placeholder={locale.emailPlaceholder} {...field} />
+                  <Input type="email" placeholder={'example@pm.me'} {...field} />
                 </FormControl>
               </FormItem>
             )}
@@ -71,17 +80,18 @@ export const FeedbackForm = () => {
             name="message"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{locale.feedback}</FormLabel>
+                <FormLabel>{'feedback'}</FormLabel>
                 <FormControl>
-                  <Input placeholder={locale.messagePlaceholder} {...field} />
+                  <Input placeholder={'i love this app!'} {...field} />
                 </FormControl>
               </FormItem>
             )}
           />
           <Button type="submit">
-            {locale.send}
+            {'shout into the void'}
           </Button>
         </form>
+        </Form>
       </DialogContent>
     </Dialog>
   )

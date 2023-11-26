@@ -1,5 +1,10 @@
 # yolofail
 
+This project is on its third iteration now. I started working on it in March 2021, when GameStop stock reached a post-squeeze high, and I was looking for an excuse to learn React. 
+
+
+[https://x.com/ZachHarding](https://x.com/ZachHarding)
+
 fullstack app charting asset performance against index (IVV)
 
 ## v0 - deprecated

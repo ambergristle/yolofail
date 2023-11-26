@@ -108,7 +108,7 @@ export const getChartData = async ({
 
 }
 
-const getChartSummary = (data: { date: string; index: number; asset: number; }[]) => {
+export const getChartSummary = (data: { date: string; index: number; asset: number; }[]) => {
   const initialValues = data[0];
   const currentValues = data[data.length - 1];
 
