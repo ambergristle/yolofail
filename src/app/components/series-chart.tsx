@@ -1,6 +1,6 @@
-"use client"
+'use client';
 
-import { AreaChart } from "@tremor/react";
+import { AreaChart } from '@tremor/react';
 
 type SeriesChartProps = {
   data: {
@@ -16,10 +16,10 @@ export const SeriesChart = ({ data }: SeriesChartProps) => {
     <AreaChart
       data={data}
       index="date"
-      categories={["index", "asset"]}
-      colors={["gray", "green"]}
+      categories={['index', 'asset']}
+      colors={['gray', 'green']}
       valueFormatter={(value) => value.toString()}
       showAnimation
     />
   );
-}
+};

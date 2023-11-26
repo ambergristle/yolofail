@@ -1,24 +1,24 @@
-"use client"
+'use client';
 
-import { useRouter } from "next/router";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
+import { useRouter } from 'next/router';
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 
-import { Button } from "@/components/button";
-import { Calendar } from "@/components/calendar";
-import { DatePickerTrigger } from "@/components/date-picker";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/form";
-import { Input } from "@/components/input";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/popover";
+import { Button } from '@/components/button';
+import { Calendar } from '@/components/calendar';
+import { DatePickerTrigger } from '@/components/date-picker';
+import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/form';
+import { Input } from '@/components/input';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/popover';
 
 
 const QueryFormValues = z.object({
   symbol: z.string(),
   amount: z.number().min(1), // max?
   buyDate: z.date(),
-})
+});
 
 type QueryFormValues = z.infer<typeof QueryFormValues>;
 
@@ -28,21 +28,21 @@ const getDefaultValues = () => {
     symbol: 'GME',
     amount: 100,
     buyDate: new Date(), // years ago
-  }
-}
+  };
+};
 
 const QueryForm = () => {
   
   const formProps = useForm({
     resolver: zodResolver(QueryFormValues),
     defaultValues: getDefaultValues(),
-  })
+  });
 
-  const router = useRouter()
+  const router = useRouter();
 
   const onSubmit = (values: QueryFormValues) => {
-    router.push(`/${values.symbol}`)
-  }
+    router.push(`/${values.symbol}`);
+  };
 
   return (
     <Form {...formProps}>
@@ -50,7 +50,7 @@ const QueryForm = () => {
         className="flex flex-row items-center space-x-4"
         noValidate
         onSubmit={formProps.handleSubmit(onSubmit)}
-        >
+      >
         <FormField
           name="symbol"
           render={({ field }) => (
@@ -90,7 +90,7 @@ const QueryForm = () => {
         </Button>
       </form>
     </Form>
-  )
-}
+  );
+};
 
 export default QueryForm;

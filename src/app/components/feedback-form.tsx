@@ -1,29 +1,29 @@
-import { useForm } from "react-hook-form";
-import { zodResolver } from '@hookform/resolvers/zod'
-import wretch from 'wretch'
-import { z } from 'zod'
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import wretch from 'wretch';
+import { z } from 'zod';
 
-import { Button } from "@/components/button";
+import { Button } from '@/components/button';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger
-} from "@/components/dialog";
+  DialogTrigger,
+} from '@/components/dialog';
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
-  FormLabel
-} from "@/components/form";
-import { Input } from "@/components/input";
+  FormLabel,
+} from '@/components/form';
+import { Input } from '@/components/input';
 
 const FeedbackValues = z.object({
   email: z.string().email(),
-  message: z.string().min(500)
-})
+  message: z.string().min(500),
+});
 
 type FeedbackValues = z.infer<typeof FeedbackValues>;
 
@@ -31,8 +31,8 @@ const sendFeedbackRequest = async (payload: FeedbackValues) => {
   return wretch('/api/feedback')
     .post(payload)
     .json()
-    .catch(console.error)
-}
+    .catch(console.error);
+};
 
 /** 
  * @todo cleanup 
@@ -46,14 +46,14 @@ export const FeedbackForm = () => {
       email: '',
       message: '',
     },
-  })
+  });
 
   const onSubmit = formProps.handleSubmit(
     async (values) => {
-      await sendFeedbackRequest(values)
+      await sendFeedbackRequest(values);
     }, 
-    console.error
-  )
+    console.error,
+  );
 
   return (
     <Dialog>
@@ -67,39 +67,39 @@ export const FeedbackForm = () => {
           </DialogTitle>
         </DialogHeader>
         <Form {...formProps}>
-        <form 
-         className="space-y-8" 
-          noValidate
-          onSubmit={onSubmit}
+          <form 
+            className="space-y-8" 
+            noValidate
+            onSubmit={onSubmit}
           >
-          <FormField
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{'email'}</FormLabel>
-                <FormControl>
-                  <Input type="email" placeholder={'example@pm.me'} {...field} />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-          <FormField
-            name="message"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{'feedback'}</FormLabel>
-                <FormControl>
-                  <Input placeholder={'i love this app!'} {...field} />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-          <Button type="submit">
-            {'shout into the void'}
-          </Button>
-        </form>
+            <FormField
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{'email'}</FormLabel>
+                  <FormControl>
+                    <Input type="email" placeholder={'example@pm.me'} {...field} />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              name="message"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{'feedback'}</FormLabel>
+                  <FormControl>
+                    <Input placeholder={'i love this app!'} {...field} />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <Button type="submit">
+              {'shout into the void'}
+            </Button>
+          </form>
         </Form>
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};

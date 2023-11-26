@@ -1,8 +1,8 @@
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 
 const handleError = (req: NextApiRequest, res: NextApiResponse, error: unknown) => {
-  return res.status(500).end()
-}
+  return res.status(500).end();
+};
 
 const requestMethods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'] as const;
 type RequestMethod = typeof requestMethods[number];
@@ -29,10 +29,10 @@ export const handleRoute = (handlers: RouteMethods, options: RouteOptions = {}):
 
   return async (req, res) => {
     try {
-      if (!isRequestMethod(req.method)) throw new Error('invalid method')
+      if (!isRequestMethod(req.method)) throw new Error('invalid method');
 
       const handleMethod = handlers[req.method];
-      if (!handleMethod) throw new Error('invalid method')
+      if (!handleMethod) throw new Error('invalid method');
 
       if (options.middleware) {
         return await options.middleware(req, res, handleMethod);
