@@ -3,6 +3,7 @@
 import { Typography } from "@/components/typography";
 import { AreaChart } from "@tremor/react";
 import Header from "./header";
+import { Suspense } from "react";
 
 const formatCurrency = (value: number) => {
   return `$${value}`
@@ -26,15 +27,14 @@ export const SeriesChart = ({
   const currentValue = 100
 
   return (
-    <div className="w-full h-72">
-      <AreaChart
-        data={data}
-        index="date"
-        categories={["index", "asset"]}
-        colors={["gray", "green"]}
-        valueFormatter={formatPoint}
+    <AreaChart
+    data={data}
+    index="date"
+    categories={["index", "asset"]}
+    colors={["gray", "green"]}
+    valueFormatter={formatPoint}
+    showAnimation
       />
-    </div>
   )
 
 }
