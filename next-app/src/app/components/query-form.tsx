@@ -14,13 +14,13 @@ import { Input } from '@/components/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/popover';
 
 
-const QueryFormValues = z.object({
+const ZQueryFormValues = z.object({
   symbol: z.string(),
   amount: z.number().min(1), // max?
   buyDate: z.date(),
 });
 
-type QueryFormValues = z.infer<typeof QueryFormValues>;
+type QueryFormValues = z.infer<typeof ZQueryFormValues>;
 
 /** @todo hoist + drill */
 const getDefaultValues = () => {
@@ -34,7 +34,7 @@ const getDefaultValues = () => {
 const QueryForm = () => {
   
   const formProps = useForm({
-    resolver: zodResolver(QueryFormValues),
+    resolver: zodResolver(ZQueryFormValues),
     defaultValues: getDefaultValues(),
   });
 

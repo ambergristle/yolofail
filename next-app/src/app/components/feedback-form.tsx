@@ -20,12 +20,12 @@ import {
 } from '@/components/form';
 import { Input } from '@/components/input';
 
-const FeedbackValues = z.object({
+const ZFeedbackValues = z.object({
   email: z.string().email(),
   message: z.string().min(500),
 });
 
-type FeedbackValues = z.infer<typeof FeedbackValues>;
+type FeedbackValues = z.infer<typeof ZFeedbackValues>;
 
 const sendFeedbackRequest = async (payload: FeedbackValues) => {
   return wretch('/api/feedback')
@@ -41,7 +41,7 @@ const sendFeedbackRequest = async (payload: FeedbackValues) => {
 export const FeedbackForm = () => {
 
   const formProps = useForm<FeedbackValues>({
-    resolver: zodResolver(FeedbackValues),
+    resolver: zodResolver(ZFeedbackValues),
     defaultValues: {
       email: '',
       message: '',
