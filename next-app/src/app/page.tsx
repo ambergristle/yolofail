@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { getChartData, getChartSummary } from '@/lib/marketstack';
+import { fetchChartData, getChartSummary } from './utils';
+import { QueryForm } from './components/query-form';
 import { SeriesChart } from './components/series-chart';
-import QueryForm from './components/query-form';
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
@@ -39,7 +39,7 @@ const Home = async ({
     buyDate = '2023-01-01', // one year ago
   } = parseSearchParams(searchParams);
  
-  const data = await getChartData({
+  const data = await fetchChartData({
     symbol,
     buyDate,
     amount: 100,

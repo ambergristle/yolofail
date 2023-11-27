@@ -27,7 +27,7 @@ type QueryFormProps = {
   buyDate: Date;
 }
 
-const QueryForm = (props: QueryFormProps) => {
+export const QueryForm = (props: QueryFormProps) => {
   
   const formProps = useForm({
     resolver: zodResolver(ZQueryFormValues),
