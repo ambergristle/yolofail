@@ -3,7 +3,6 @@
   "extends": [
     "eslint:recommended",
     "plugin:@next/next/recommended",
-
     "plugin:@typescript-eslint/recommended",
     "plugin:tailwindcss/recommended"
   ],
@@ -11,6 +10,10 @@
     "unused-imports",
     "tailwindcss"
   ],
+  "env": {
+    "browser": true,
+    "node": true
+},
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module"

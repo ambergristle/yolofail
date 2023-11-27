@@ -1,17 +1,42 @@
 version: '3'
 
 services:
+
+  # https://github.com/dragonflydb/dragonfly/blob/main/contrib/docker/docker-compose.yml
+  dragonfly:
+    container_name: dragonfly-dev
+    image: 'docker.dragonflydb.io/dragonflydb/dragonfly'
+    restart: always
+    ulimits:
+      memlock: -1
+    volumes:
+      - dragonflydata:/data
+    # For better performance, consider `host` mode instead `port` to avoid docker NAT.
+    # `host` mode is NOT currently supported in Swarm Mode.
+    # https://docs.docker.com/compose/compose-file/compose-file-v3/#network_mode
+    # network_mode: "host"
+    ports:
+      - "6379:6379"
+
   # https://github.com/vercel/next.js/blob/canary/examples/with-docker-compose/docker-compose.dev.yml
   next-app:
-    container_name: next-app
+    container_name: next-app-dev
+
+    depends_on:
+      - dragonfly
+    env_file:
+      - .env.local
+    
     build:
       context: ./next-app
       dockerfile: docker/dev.Dockerfile
-    env_file:
-      - .env.local
     volumes:
-      - ./next-app/src:/app/src
-      - ./next-app/public:/app/public
+      - ./next-app/src:/usr/app/src
+      - ./next-app/public:/usr/app/public
+
     restart: always
     ports:
       - 3000:3000
+
+volumes:
+  dragonflydata:

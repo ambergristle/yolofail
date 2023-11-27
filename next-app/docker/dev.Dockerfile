@@ -1,17 +1,26 @@
-FROM oven/bun:latest
+FROM oven/bun:1.0-slim as base
+WORKDIR /usr/app
 
-WORKDIR /src/app
+RUN apt-get update -y && apt-get install -y
 
-# oof
-COPY package.json ./
-COPY bun.lockb ./
+FROM base AS install
+# install dependencies into temp directory
+# this will cache them and speed up future builds
+RUN mkdir -p /temp/dev
+COPY package.json bun.lockb /temp/dev/
+RUN cd /temp/dev && bun install --frozen-lockfile
 
-RUN bun install
-
+# copy node_modules from temp directory
+# then copy all (non-ignored) project files into the image
+FROM install AS prerelease
+COPY --from=install /temp/dev/node_modules node_modules
 COPY . .
 
-# Next.js collects completely anonymous telemetry data about general usage. 
-# Learn more here: https://nextjs.org/telemetry
+ENV NODE_ENV=development
+# bext.js collects completely anonymous telemetry data about general usage 
+# learn more here: https://nextjs.org/telemetry
 ENV NEXT_TELEMETRY_DISABLED 1
 
-CMD bun run dev
+# run the app
+# note: Don't expose ports here, ompose will handle that for us
+CMD [ "bun", "dev" ]

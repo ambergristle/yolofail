@@ -51,7 +51,8 @@ const Home = async ({
     percentDelta,
   } = getChartSummary(data);
 
-  const sign = valueDelta < 0 ? '-' : '+';
+  const isLoss = valueDelta < 0;
+  const sign = isLoss ? '-' : '+';
   const valueChange = Math.abs(valueDelta).toFixed(2);
   const percentChange = Math.abs(percentDelta).toFixed(2);
 
@@ -72,7 +73,7 @@ const Home = async ({
         <QueryForm />
       </header>
       <div className="h-72 w-full">
-        <SeriesChart data={data}/>
+        <SeriesChart data={data} isLoss={isLoss} />
       </div>
     </main>
   );
