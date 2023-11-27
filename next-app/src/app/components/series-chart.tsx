@@ -4,14 +4,17 @@ import { AreaChart } from '@tremor/react';
 
 type SeriesChartProps = {
   data: {
-      date: string;
-      asset: number;
-      index: number;
+    date: string;
+    asset: number;
+    index: number;
   }[];
   isLoss: boolean;
 }
 
-export const SeriesChart = ({ data, isLoss }: SeriesChartProps) => {
+export const SeriesChart = ({
+  data,
+  isLoss,
+}: SeriesChartProps) => {
 
   return (
     <AreaChart

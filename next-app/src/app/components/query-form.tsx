@@ -13,7 +13,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/
 import { Input } from '@/components/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/popover';
 
-
 const ZQueryFormValues = z.object({
   symbol: z.string(),
   amount: z.number().min(1), // max?
@@ -22,32 +21,30 @@ const ZQueryFormValues = z.object({
 
 type QueryFormValues = z.infer<typeof ZQueryFormValues>;
 
-/** @todo hoist + drill */
-const getDefaultValues = () => {
-  return {
-    symbol: 'GME',
-    amount: 100,
-    buyDate: new Date(), // years ago
-  };
-};
+type QueryFormProps = {
+  symbol: string;
+  amount: number;
+  buyDate: Date;
+}
 
-const QueryForm = () => {
+const QueryForm = (props: QueryFormProps) => {
   
   const formProps = useForm({
     resolver: zodResolver(ZQueryFormValues),
-    defaultValues: getDefaultValues(),
+    defaultValues: props,
   });
 
   const router = useRouter();
 
   const onSubmit = (values: QueryFormValues) => {
+    /** @todo sort */
     router.push(`/${values.symbol}`);
   };
 
   return (
     <Form {...formProps}>
       <form 
-        className="flex flex-row items-center space-x-4"
+        className="flex flex-row items-end space-x-4"
         noValidate
         onSubmit={formProps.handleSubmit(onSubmit)}
       >

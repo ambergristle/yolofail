@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { FeedbackForm } from './components/feedback-form';
 import '@/styles/globals.css';
+
+import { FeedbackForm } from './components/feedback-form';
 
 export const metadata: Metadata = {
   title: 'yolofail',

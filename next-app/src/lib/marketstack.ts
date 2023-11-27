@@ -2,7 +2,7 @@ import wretch from 'wretch';
 import QueryStringAddon from 'wretch/addons/queryString';
 import { z } from 'zod';
 
-const MarketStackResults = z.object({
+const ZMarketStackResults = z.object({
   data: z.object({
     date: z.coerce.date(), // hm
     adj_close: z.number(),
@@ -15,7 +15,7 @@ const MarketStackResults = z.object({
   }),
 });
 
-type MarketStackResults = z.infer<typeof MarketStackResults>;
+type MarketStackResults = z.infer<typeof ZMarketStackResults>;
 
 type TimeSeries = MarketStackResults['data'];
 
@@ -31,7 +31,7 @@ const queryTimeSeries = async ({
   symbol: string;
   buyDate: string;
   offset?: number;
-  series?: any[];
+  series?: TimeSeries;
 }): Promise<TimeSeries> => {
 
   try {
@@ -46,7 +46,7 @@ const queryTimeSeries = async ({
       })
       .get()
       .json((data) => {
-        const result = MarketStackResults.safeParse(data);
+        const result = ZMarketStackResults.safeParse(data);
         if (result.success) return result.data;
         throw new Error();
       });
@@ -67,7 +67,7 @@ const queryTimeSeries = async ({
 
   } catch (error) {
 
-    // handle rate limit (429)
+    /** @todo handle rate limit - 429 */
     throw new Error('', { 
       cause: error,
     });
@@ -90,7 +90,7 @@ export const getChartData = async ({
   ]);
 
   if (!indexSeries.length || !assetSeries.length) throw new Error();
-  // length equivalence?
+  /** @todo length equivalence? */
   
   const indexShareCount = amount / indexSeries[0].adj_close;
   const assetShareCount = amount / assetSeries[0].adj_close;

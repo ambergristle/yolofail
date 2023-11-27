@@ -66,11 +66,15 @@ const Home = async ({
           <p className="text-muted-foreground leading-7">
             {`${sign}$${valueChange} (${sign}${percentChange}%)`}
             <span>
-              {'against S&P500'}
+              {' against S&P500'}
             </span>
           </p>
         </div>
-        <QueryForm />
+        <QueryForm 
+          symbol={symbol}
+          buyDate={new Date(buyDate)}
+          amount={100}
+        />
       </header>
       <div className="h-72 w-full">
         <SeriesChart data={data} isLoss={isLoss} />
