@@ -42,8 +42,7 @@ export const fetchChartData = async ({
   const assetShareCount = amount / assetSeries[0].value;
 
   return indexSeries.map((indexPoint, i) => {
-    const assetPoint = assetSeries.at(i);
-    if (!assetPoint) throw new Error();
+    const assetPoint = assetSeries[i];
 
     return {
       date: indexPoint.date.split('T')[0],
