@@ -22,8 +22,10 @@ export const SeriesChart = ({
       index="date"
       categories={['index', 'asset']}
       colors={['gray', isLoss ? 'red' : 'green']}
-      valueFormatter={(value) => value.toString()}
+      valueFormatter={(value) => `$${value.toFixed(2)}`}
       showAnimation
+      showXAxis={false}
+      showYAxis={false}
     />
   );
 };

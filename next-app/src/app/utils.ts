@@ -36,7 +36,7 @@ export const fetchChartData = async ({
   ]);
 
   if (!indexSeries.length || !assetSeries.length) throw new Error();
-  /** @todo length equivalence? */
+  if (indexSeries.length !== assetSeries.length) throw new Error();
   
   const indexShareCount = amount / indexSeries[0].value;
   const assetShareCount = amount / assetSeries[0].value;
@@ -46,7 +46,7 @@ export const fetchChartData = async ({
     if (!assetPoint) throw new Error();
 
     return {
-      date: indexPoint.date,
+      date: indexPoint.date.split('T')[0],
       index: indexPoint.value * indexShareCount,
       asset: assetPoint.value * assetShareCount,
     };
