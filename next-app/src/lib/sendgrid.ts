@@ -1,16 +1,26 @@
-import mail from '@sendgrid/mail';
+import mail, { ResponseError } from '@sendgrid/mail';
 import { z } from 'zod';
+import { parserFactory } from './utils';
 
-mail.setApiKey(process.env.SENDGRID_API_KEY);
+const ZSendEmailParams = z.object({ 
+  from: z.string().email(),
+  text: z.string(),
+});
 
-export const sendEmail = async (data: { from: string; message: string; }) => {
+const parseSendEmailParams = parserFactory(ZSendEmailParams);
+
+type SendEmailParams = z.infer<typeof ZSendEmailParams>;
+
+const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
+if (!SENDGRID_API_KEY) throw new Error('Environment Error: SendGrid key is required');
+
+mail.setApiKey(SENDGRID_API_KEY);
+
+export const sendEmail = async (data: SendEmailParams) => {
   try {
-    const { from, text } = z.object({ 
-      from: z.string().email(),
-      text: z.string(),
-    }).parse(data);
+    const { from, text } = parseSendEmailParams(data);
 
-    const [response] = await mail.send({
+    await mail.send({
       from: 'feedback@yolofail.com',
       replyTo: from,
       to: 'hello@yolofail.com',
@@ -19,8 +29,9 @@ export const sendEmail = async (data: { from: string; message: string; }) => {
     });
 
   } catch (error) {
-    if (error instanceof ErrSenor && error.response) {
 
+    if (error instanceof ResponseError) {
+      throw new Error('', { cause: error });
     }
 
     throw new Error('', { cause: error });

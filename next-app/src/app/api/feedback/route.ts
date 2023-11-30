@@ -1,5 +1,5 @@
-import { handleRoute } from '@/src/lib/something';
-import { sendEmail } from './sendEmail';
+import { handleRoute } from '@/lib/middleware';
+import { sendEmail } from '@/lib/sendgrid';
 
 export default handleRoute({
   POST: async (req, res) => {

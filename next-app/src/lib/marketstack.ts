@@ -1,8 +1,9 @@
 import wretch from 'wretch';
 import QueryStringAddon from 'wretch/addons/queryString';
 import { z } from 'zod';
+import { parserFactory } from './utils';
 
-const ZMarketStackResults = z.object({
+const ZEodResponse = z.object({
   data: z.object({
     date: z.string(), // hm
     adj_close: z.number(),
@@ -17,9 +18,11 @@ const ZMarketStackResults = z.object({
   }),
 });
 
-type MarketStackResults = z.infer<typeof ZMarketStackResults>;
+const parseResponse = parserFactory(ZEodResponse);
 
-type TimeSeries = MarketStackResults['data'];
+type EodResponse = z.infer<typeof ZEodResponse>;
+
+type TimeSeries = EodResponse['data'];
 
 const marketStack = wretch('https://api.marketstack.com/v1/eod')
   .addon(QueryStringAddon);
@@ -47,11 +50,7 @@ export const queryTimeSeries = async ({
         ...(offset && { offset }),
       })
       .get()
-      .json((data) => {
-        const result = ZMarketStackResults.safeParse(data);
-        if (result.success) return result.data;
-        throw new Error();
-      });
+      .json(parseResponse);
 
     series.push(...data);
 

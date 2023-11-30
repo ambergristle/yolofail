@@ -1,17 +1,22 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { z } from 'zod';
+import { useRef } from 'react';
+import { useFormState } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 
-import { Button } from '@/components/button';
+
+
 import { Calendar } from '@/components/calendar';
 import { DatePickerTrigger } from '@/components/date-picker';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/form';
 import { Input } from '@/components/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/popover';
+import { queryTimeSeries } from '../actions/query-time-series';
+import { SubmitButton } from './submit-button';
+
 
 const ZQueryFormValues = z.object({
   symbol: z.string(),
@@ -28,25 +33,25 @@ type QueryFormProps = {
 }
 
 export const QueryForm = (props: QueryFormProps) => {
-  
+
+  const formRef = useRef<HTMLFormElement>(null);
+  const [queryState, queryAction] = useFormState(queryTimeSeries, props);
+  console.log(queryState);
+
   const formProps = useForm({
     resolver: zodResolver(ZQueryFormValues),
-    defaultValues: props,
+    defaultValues: queryState,
   });
-
-  const router = useRouter();
-
-  const onSubmit = (values: QueryFormValues) => {
-    /** @todo sort */
-    router.push(`/${values.symbol}`);
-  };
 
   return (
     <Form {...formProps}>
       <form 
+        ref={formRef}
         className="flex flex-row items-end space-x-4"
         noValidate
-        onSubmit={formProps.handleSubmit(onSubmit)}
+        onSubmit={formProps.handleSubmit(() => {
+          formRef.current?.submit();
+        })}
       >
         <FormField
           name="symbol"
@@ -82,9 +87,9 @@ export const QueryForm = (props: QueryFormProps) => {
             </FormItem>
           )}
         />
-        <Button variant="outline" size="icon">
+        <SubmitButton size="icon">
           <MagnifyingGlassIcon />
-        </Button>
+        </SubmitButton>
       </form>
     </Form>
   );

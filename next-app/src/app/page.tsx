@@ -38,6 +38,7 @@ const Home = async ({
     symbol = 'GME',
     buyDate = '2023-01-01', // one year ago
   } = parseSearchParams(searchParams);
+  
  
   const data = await fetchChartData({
     symbol,

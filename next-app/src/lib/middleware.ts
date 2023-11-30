@@ -8,7 +8,7 @@ const requestMethods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'] as const;
 type RequestMethod = typeof requestMethods[number];
 
 const isRequestMethod = (value: unknown): value is RequestMethod => {
-  return requestMethods.includes(value as any);
+  return requestMethods.includes(value as RequestMethod);
 };
 
 type RouteMethods = {
