@@ -29,7 +29,7 @@ services:
     
     build:
       context: ./next-app
-      dockerfile: docker/dev.Dockerfile
+      dockerfile: docker/development.Dockerfile
     volumes:
       - ./next-app/src:/usr/app/src
       - ./next-app/public:/usr/app/public
