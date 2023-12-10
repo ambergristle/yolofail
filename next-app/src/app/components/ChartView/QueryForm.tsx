@@ -1,57 +1,50 @@
 'use client';
 
-import { useRef } from 'react';
-import { useFormState } from 'react-dom';
+import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
-
-
 
 import { Calendar } from '@/components/calendar';
 import { DatePickerTrigger } from '@/components/date-picker';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/form';
 import { Input } from '@/components/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/popover';
-import { queryTimeSeries } from '../actions/query-time-series';
-import { SubmitButton } from './submit-button';
+import { SubmitButton } from '../submit-button';
+import { ChartDataQueryParams } from '@/schemas';
 
-
-const ZQueryFormValues = z.object({
+const _QueryFormValues = z.object({
   symbol: z.string(),
   amount: z.number().min(1), // max?
   buyDate: z.date(),
 });
 
-type QueryFormValues = z.infer<typeof ZQueryFormValues>;
+type QueryFormValues = z.infer<typeof _QueryFormValues>;
 
-type QueryFormProps = {
-  symbol: string;
-  amount: number;
-  buyDate: Date;
+type PropTypes = {
+  defaultValues: QueryFormValues;
+  onSubmit: (params: ChartDataQueryParams) => void;
 }
 
-export const QueryForm = (props: QueryFormProps) => {
-
-  const formRef = useRef<HTMLFormElement>(null);
-  const [queryState, queryAction] = useFormState(queryTimeSeries, props);
-  console.log(queryState);
+const QueryForm = ({
+  defaultValues,
+  onSubmit,
+}: PropTypes) => {
 
   const formProps = useForm({
-    resolver: zodResolver(ZQueryFormValues),
-    defaultValues: queryState,
+    resolver: zodResolver(_QueryFormValues),
+    defaultValues,
   });
 
   return (
     <Form {...formProps}>
-      <form 
-        ref={formRef}
+      <form
         className="flex flex-row items-end space-x-4"
         noValidate
-        onSubmit={formProps.handleSubmit(() => {
-          formRef.current?.submit();
-        })}
+        action={async (values) => {
+          const isValid = await formProps.trigger();
+          if (isValid) onSubmit(values);
+        }}
       >
         <FormField
           name="symbol"

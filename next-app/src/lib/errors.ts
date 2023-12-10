@@ -1,13 +1,5 @@
 import { STATUS_CODES } from 'http';
 
-// https://stackoverflow.com/questions/59625425/understanding-error-capturestacktrace-and-stack-trace-persistance
-
-// https://gist.github.com/TooTallNate/4fd641f820e1325695487dfd883e5285
-
-// https://javascript.info/custom-errors
-
-// https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#server_error_responses
-
 class HttpError extends Error {
   public readonly statusCode: number;
 

@@ -1,32 +1,25 @@
+'use server';
+
+import { fetchChartData } from '@/controllers';
+import { ChartData, ChartDataQueryParams } from '@/schemas';
 import { revalidatePath } from 'next/cache';
-import { useFormStatus } from 'react-dom';
-
-
-const useIsLoading = () => {
-  const { pending } = useFormStatus();
-  return pending;
-};
 
 // aria-live="polite" className="sr-only" role="status"
 
-export const query = async (prev: any, payload: any) => {
-
+export const queryTimeSeries = async (
+  prev: ChartData, 
+  query: ChartDataQueryParams,
+) => {
   try {
-    // parse
-
-    // do work
+    console.log(query);
+    const data = await fetchChartData(query);
 
     revalidatePath('/');
 
-    return {
-
-    };
+    return data;
   } catch (error) {
     console.error(error);
 
-    return {
-
-    };
+    return prev;
   }
-
 };

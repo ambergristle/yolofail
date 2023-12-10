@@ -2,8 +2,9 @@ import wretch from 'wretch';
 import QueryStringAddon from 'wretch/addons/queryString';
 import { z } from 'zod';
 import { parserFactory } from './utils';
+import { TimeSeries } from '@/schemas';
 
-const ZEodResponse = z.object({
+const _EodResponse = z.object({
   data: z.object({
     date: z.string(), // hm
     adj_close: z.number(),
@@ -18,11 +19,7 @@ const ZEodResponse = z.object({
   }),
 });
 
-const parseResponse = parserFactory(ZEodResponse);
-
-type EodResponse = z.infer<typeof ZEodResponse>;
-
-type TimeSeries = EodResponse['data'];
+const parseResponse = parserFactory(_EodResponse);
 
 const marketStack = wretch('https://api.marketstack.com/v1/eod')
   .addon(QueryStringAddon);
@@ -67,7 +64,7 @@ export const queryTimeSeries = async ({
     });
 
   } catch (error) {
-
+    console.log(error);
     /** @todo handle rate limit - 429 */
     throw new Error('', { 
       cause: error,

@@ -1,7 +1,6 @@
 import { z } from 'zod';
-import { fetchChartData, getChartSummary } from './utils';
-import { QueryForm } from './components/query-form';
-import { SeriesChart } from './components/series-chart';
+import { fetchChartData } from '@/controllers';
+import ChartView from './components/ChartView';
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
@@ -30,7 +29,7 @@ type PageProps = {
   searchParams?: SearchParams;
 }
 
-const Home = async ({
+const Page = async ({
   searchParams,
 }: PageProps) => {
 
@@ -38,50 +37,22 @@ const Home = async ({
     symbol = 'GME',
     buyDate = '2023-01-01', // one year ago
   } = parseSearchParams(searchParams);
-  
- 
-  const data = await fetchChartData({
+
+  const query = {
     symbol,
     buyDate,
     amount: 100,
-  });
-
-  const {
-    currentValue,
-    valueDelta,
-    percentDelta,
-  } = getChartSummary(data);
-
-  const isLoss = valueDelta < 0;
-  const sign = isLoss ? '-' : '+';
-  const valueChange = Math.abs(valueDelta).toFixed(2);
-  const percentChange = Math.abs(percentDelta).toFixed(2);
+  };
+ 
+  const data = await fetchChartData(query);
 
   return (
-    <main className="flex w-screen flex-col items-center p-24">
-      <header className="flex w-full flex-row justify-between">
-        <div>
-          <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0">
-            {`$${currentValue.toFixed(2)}`}
-          </h2>
-          <p className="text-muted-foreground leading-7">
-            {`${sign}$${valueChange} (${sign}${percentChange}%)`}
-            <span>
-              {' against S&P500'}
-            </span>
-          </p>
-        </div>
-        <QueryForm 
-          symbol={symbol}
-          buyDate={new Date(buyDate)}
-          amount={100}
-        />
-      </header>
-      <div className="h-72 w-full">
-        <SeriesChart data={data} isLoss={isLoss} />
-      </div>
-    </main>
+    <ChartView 
+      query={query} 
+      data={data}
+    />
   );
+
 };
 
-export default Home;
+export default Page;
