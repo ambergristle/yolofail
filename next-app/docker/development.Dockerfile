@@ -22,5 +22,5 @@ ENV NODE_ENV=development
 ENV NEXT_TELEMETRY_DISABLED 1
 
 # run the app
-# note: Don't expose ports here, ompose will handle that for us
+# note: Don't expose ports here, compose will handle that for us
 CMD [ "bun", "dev" ]

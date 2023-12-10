@@ -40,7 +40,6 @@ FROM base AS release
 COPY --from=prerelease --chown=bun:bun  /usr/app/.next/standalone ./
 COPY --from=prerelease --chown=bun:bun  /usr/app/.next/static ./.next/static
 
-
 # environment variables must be redefined at run time
 ENV NODE_ENV=production
 # bext.js collects completely anonymous telemetry data about general usage 
