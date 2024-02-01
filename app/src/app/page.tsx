@@ -1,7 +1,7 @@
 import { fetchChartData } from '@/controllers';
 import { parseSearchParams } from '@/dtos';
-import ChartView from '../components/chart-view';
-import { QueryContextProvider } from '../components/query-context';
+import ChartView from '@/components/chart-view';
+import { QueryContextProvider } from '@/components/query-context';
 
 export const dynamic = 'force-dynamic';
 

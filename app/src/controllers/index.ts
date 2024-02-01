@@ -3,7 +3,7 @@
 import { parseCachedTimeSeries } from '@/dtos';
 import { queryTimeSeries } from '@/lib/marketstack';
 import cache from '@/lib/redis';
-import { TimeSeriesPoint } from '@/types';
+import { TimeSeriesData, TimeSeriesPoint } from '@/types';
 
 export const fetchChartData = async ({
   symbol,
@@ -13,7 +13,7 @@ export const fetchChartData = async ({
   symbol: string;
   buyDate: string;
   amount: number;
-}) => {
+}): Promise<TimeSeriesData> => {
 
   const [indexSeries, assetSeries] = await Promise.all([
     getSymbolTimeSeries('IVV', buyDate),

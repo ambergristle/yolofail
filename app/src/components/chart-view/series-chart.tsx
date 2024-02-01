@@ -24,7 +24,7 @@ const SeriesChart = ({
   if (isLoading) return (
     <div className="flex flex-col items-center justify-center">
       <LoadingIcon 
-        className="text-muted-foreground h-8 w-8 animate-spin" 
+        className="h-8 w-8 animate-spin text-muted-foreground" 
       />
     </div>
   );

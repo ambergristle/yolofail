@@ -13,4 +13,10 @@ const nextConfig = {
   output: 'standalone',
 };
 
-module.exports = nextConfig;
+// Cannot use import statement outside a module
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
+
+module.exports = withBundleAnalyzer(nextConfig);

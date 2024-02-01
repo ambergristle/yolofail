@@ -6,7 +6,7 @@ import termsOfService from './terms.md';
 const options: MarkdownToJSX.Options = {
   overrides: {
     h4: (props) => <h4 {...props} className="mb-1 mt-2 scroll-m-20 text-xl font-semibold tracking-tight" />,
-    p: (props) => <p {...props} className="text-muted-foreground mb-1 text-justify" />,
+    p: (props) => <p {...props} className="mb-1 text-justify text-muted-foreground" />,
     a: (props) => <a {...props} className="underline-offset-4 hover:underline" />,
   },
 };
