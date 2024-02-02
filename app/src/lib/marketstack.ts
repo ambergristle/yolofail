@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 import { CachedTimeSeries } from '@/types';
 
-const marketStack = wretch('https://api.marketstack.com/v1/eod')
+const MarketStack = wretch('https://api.marketstack.com/v1/eod')
   .addon(QueryStringAddon);
 
 export const queryTimeSeries = async ({
@@ -20,7 +20,7 @@ export const queryTimeSeries = async ({
 }): Promise<CachedTimeSeries> => {
 
   try {
-    const { data, pagination } = await marketStack
+    const { data, pagination } = await MarketStack
       .query({
         access_key: process.env.MARKETSTACK_API_KEY,
         symbols: symbol,
@@ -30,10 +30,16 @@ export const queryTimeSeries = async ({
         ...(offset && { offset }),
       })
       .get()
-      .json((payload) => {
-        console.log('PERSIN');
-        return parseResponse(payload);
+      .res((response) => {
+        console.log('GOTEM');
+        console.log(response);
+        return response.json();
       });
+
+    // .json((payload) => {
+    //   console.log('PERSIN');
+    //   return parseResponse(payload);
+    // });
 
     series.push(...data);
 
