@@ -1,7 +1,7 @@
-import axios from 'axios';
 import { z } from 'zod';
 
 import { CachedTimeSeries } from '@/types';
+import { URLSearchParams } from 'next/dist/compiled/@edge-runtime/primitives/url';
 
 // const MarketStack = wretch('https://api.marketstack.com/v1/eod')
 //   .addon(QueryStringAddon);
@@ -19,18 +19,20 @@ export const queryTimeSeries = async ({
 }): Promise<CachedTimeSeries> => {
 
   try {
-    console.log('KEY', typeof process.env.MARKETSTACK_API_KEY);
-    const response = await axios.get('https://api.marketstack.com/v1/eod', {
-      params: {
-        access_key: process.env.MARKETSTACK_API_KEY,
-        symbols: symbol,
-        date_from: buyDate,
-        limit: 1000,
-        sort: 'ASC',
-        ...(offset && { offset }),
-      },
+    const url = 'https://api.marketstack.com/v1/eod?' + new URLSearchParams({
+      access_key: process.env.MARKETSTACK_API_KEY,
+      symbols: symbol,
+      date_from: buyDate,
+      limit: 1000,
+      sort: 'ASC',
+      ...(offset && { offset }),
     });
-    const { data, pagination } = parseResponse(response.data);
+
+    const { data, pagination } = await fetch(url).then((res) => {
+      console.log(res.status);
+      console.log(res.headers);
+      return res.json();
+    }).then(parseResponse);
 
     // const { data, pagination } = await MarketStack
     //   .query({
