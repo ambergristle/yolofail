@@ -1,6 +1,6 @@
 import { RedisClientType, RedisFunctions, RedisModules, RedisScripts, createClient } from 'redis';
 
-export default (() => {
+export default () => {
   let _client: RedisClientType<RedisModules, RedisFunctions, RedisScripts>;
 
   const connect = async () => {
@@ -18,7 +18,6 @@ export default (() => {
   };
 
   return {
-    connect,
     get: async (key: string) => {
       const client = await connect();
       return client.get(key);
@@ -34,4 +33,4 @@ export default (() => {
     },
   };
 
-})();
+};
