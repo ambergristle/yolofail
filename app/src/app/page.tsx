@@ -30,7 +30,14 @@ const Page = async ({
     );
 
   } catch (error) {
-    console.error(JSON.stringify(error, null, 2));
+    if (error instanceof Error) {
+      console.error({
+        name: error.name,
+        message: error.message,
+        cause: error.cause,
+        stack: error.stack,
+      });
+    }
     
     const errorMessage = error instanceof Error && error.message
       ? error.message 
@@ -38,8 +45,8 @@ const Page = async ({
 
     /** @todo return 404 */
     return (
-      <main className="h-96 pt-20">
-        <Typography className="text-destructive self-center" variant='h3'>
+      <main className="flex h-96 flex-col items-center justify-center pt-20">
+        <Typography className="text-destructive" variant='h3'>
           {errorMessage}
         </Typography>
       </main>
