@@ -1,7 +1,6 @@
 import { z } from 'zod';
 
 import { CachedTimeSeries } from '@/types';
-import { URLSearchParams } from 'next/dist/compiled/@edge-runtime/primitives/url';
 
 // const MarketStack = wretch('https://api.marketstack.com/v1/eod')
 //   .addon(QueryStringAddon);
