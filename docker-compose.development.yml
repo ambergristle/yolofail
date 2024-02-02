@@ -1,11 +1,11 @@
-version: '3'
+version: "3"
 
 services:
 
   # https://github.com/dragonflydb/dragonfly/blob/main/contrib/docker/docker-compose.yml
-  cache:
-    container_name: cache-dev
-    image: 'docker.dragonflydb.io/dragonflydb/dragonfly'
+  dragonfly-db:
+    container_name: dragonfly-db-dev
+    image: "docker.dragonflydb.io/dragonflydb/dragonfly"
     restart: always
     ulimits:
       memlock: -1
@@ -19,11 +19,12 @@ services:
       - "6379:6379"
 
   # https://github.com/vercel/next.js/blob/canary/examples/with-docker-compose/docker-compose.dev.yml
-  app:
-    container_name: app-dev
+  next-app:
+    container_name: next-app-dev
+    restart: always
 
     depends_on:
-      - cache
+      - dragonfly-db-dev
     env_file:
       - .env.local
     
@@ -34,7 +35,6 @@ services:
       - ./app/src:/usr/app/src
       - ./app/public:/usr/app/public
 
-    restart: always
     ports:
       - 3000:3000
 

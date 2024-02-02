@@ -1,5 +1,5 @@
 FROM oven/bun:1.0-slim as base
-WORKDIR /usr/app
+WORKDIR /usr/src/app
 
 RUN apt-get update -y && apt-get install -y
 
@@ -22,7 +22,7 @@ COPY --from=install /temp/dev/node_modules node_modules
 COPY . .
 
 ENV NODE_ENV=production
-# bext.js collects completely anonymous telemetry data about general usage 
+# next.js collects completely anonymous telemetry data about general usage 
 # learn more here: https://nextjs.org/telemetry
 ENV NEXT_TELEMETRY_DISABLED 1
 
@@ -48,4 +48,4 @@ ENV NEXT_TELEMETRY_DISABLED 1
 
 # run the app
 # note: Don't expose ports here, ompose will handle that for us
-CMD [ "bun", "run", "server.js" ]
+CMD [ "bun", "start" ]

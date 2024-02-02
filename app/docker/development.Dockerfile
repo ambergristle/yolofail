@@ -1,5 +1,5 @@
 FROM oven/bun:1.0-slim as base
-WORKDIR /usr/app
+WORKDIR /usr/src/app
 
 RUN apt-get update -y && apt-get install -y
 
