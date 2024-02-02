@@ -1,4 +1,4 @@
-import { RedisClientType, RedisFunctions, RedisModules, RedisScripts, createClient } from 'redis';
+import { createClient } from 'redis';
 
 const client = createClient({
   url: process.env.REDIS_URL,
@@ -14,30 +14,24 @@ export type RedisCache = {
 }
 
 const cache = () => {
-  let connection: RedisClientType<RedisModules, RedisFunctions, RedisScripts>;
 
-  async function connect() {
-    if (!connection) {
-      console.log('no conn');
-      connection = await client.connect();
-    }
-    
-    return connection;
-  }
+  const connection = client.connect();
 
   return {
     get: async (key: string) => {
-      const client = await connect();
+      const client = await connection;
       return client.get(key);
     },
     set: async (key: string, value: string) => {
-      const client = await connect();
+      const client = await connection;
       return client.set(key, value, {
         EX: 60 * 60 * 24,
       });
     },
     close: async () => {
-      return await connection?.quit();
+      return connection.then((conn) => {
+        return conn.quit();
+      });
     },
   };
 };
