@@ -59,9 +59,9 @@ const SeriesChart = <
           if (!active || !payload) return null;
 
           return (
-            <div className="rounded-tremor-default border-tremor-border bg-tremor-background text-tremor-default shadow-tremor-dropdown dark:border-dark-tremor-border dark:bg-dark-tremor-background dark:shadow-dark-tremor-dropdown border">
-              <div className="border-tremor-border dark:border-dark-tremor-border border-b px-4 py-2">
-                <p className="text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis font-medium">
+            <div className="rounded-tremor-default border border-tremor-border bg-tremor-background text-tremor-default shadow-tremor-dropdown dark:border-dark-tremor-border dark:bg-dark-tremor-background dark:shadow-dark-tremor-dropdown">
+              <div className="border-b border-tremor-border px-4 py-2 dark:border-dark-tremor-border">
+                <p className="font-medium text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis">
                   {label}
                 </p>
               </div>
@@ -75,7 +75,7 @@ const SeriesChart = <
                       <span
                         className={cn(
                           // common
-                          'rounded-tremor-full h-3 w-3 shrink-0 border-2',
+                          'h-3 w-3 shrink-0 rounded-tremor-full border-2',
                           // light
                           'border-tremor-background shadow-tremor-card',
                           // dark

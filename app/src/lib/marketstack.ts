@@ -18,14 +18,18 @@ export const queryTimeSeries = async ({
 }): Promise<CachedTimeSeries> => {
 
   try {
-    const url = 'https://api.marketstack.com/v1/eod?' + new URLSearchParams({
-      access_key: process.env.MARKETSTACK_API_KEY,
+
+    const params: Record<string, string> = {
+      /** @todo extract */
+      access_key: `${process.env.MARKETSTACK_API_KEY}`,
       symbols: symbol,
       date_from: buyDate,
-      limit: 1000,
+      limit: '1000',
       sort: 'ASC',
-      ...(offset && { offset }),
-    });
+      ...(offset && { offset: `${offset}` }),
+    };
+
+    const url = 'https://api.marketstack.com/v1/eod?' + new URLSearchParams(params);
 
     const { data, pagination } = await fetch(url).then((res) => {
       console.log(res.status);
