@@ -1,4 +1,3 @@
-import { fetchChartData } from '@/controllers';
 import { parseSearchParams } from '@/dtos';
 
 export const dynamic = 'force-dynamic';
@@ -10,7 +9,14 @@ export const GET = async (request: Request) => {
 
   const query = parseSearchParams(searchParams);
 
-  const data = await fetchChartData(query);
+  const data = {
+    series: [],
+    summary: {
+      currentValue: 0,
+      valueDelta: 0,
+      percentDelta: 0,
+    },
+  };
 
   return Response.json({
     success: true,

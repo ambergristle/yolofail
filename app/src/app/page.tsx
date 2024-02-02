@@ -1,4 +1,3 @@
-import { fetchChartData } from '@/controllers';
 import { parseSearchParams } from '@/dtos';
 import { Typography } from '@/components/ui/typography';
 import ChartView from '@/components/chart-view';
@@ -21,7 +20,16 @@ const Page = async ({
       amount: '100',
     });
 
-    const data = await fetchChartData(query);
+    // const data = await fetchChartData(query);
+
+    const data = {
+      series: [],
+      summary: {
+        currentValue: 0,
+        valueDelta: 0,
+        percentDelta: 0,
+      },
+    };
   
     return (
       <QueryContextProvider query={query} data={data}>
