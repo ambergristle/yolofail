@@ -7,33 +7,38 @@ const client = createClient({
   .on('end', () => console.info('Redis Client Disconnected'));
   // .on('error', (error) => console.error('Redis Client Error:', error));
 
-export type RedisCache = {
+export type RedisDb = {
   get: (key: string) => Promise<string | null>;
   set: (key: string, value: string) => Promise<string | null>;
-  close: () => Promise<string>;
+  close: () => Promise<string | void>;
 }
 
-const cache = () => {
+const db = async (): Promise<RedisDb> => {
 
-  const connection = client.connect();
+  const connect = async () => {
+    if (!client.isOpen) {
+      await client.connect();
+    }
+ 
+    return client;
+  };
 
   return {
     get: async (key: string) => {
-      const client = await connection;
-      return client.get(key);
+      const cache = await connect();
+      return cache.get(key);
     },
     set: async (key: string, value: string) => {
-      const client = await connection;
-      return client.set(key, value, {
+      const cache = await connect();
+      return cache.set(key, value, {
         EX: 60 * 60 * 24,
       });
     },
     close: async () => {
-      return connection.then((conn) => {
-        return conn.quit();
-      });
+      console.log('QUIT');
+      if (client.isOpen) return client.quit();
     },
   };
 };
 
-export default cache();
+export default db;

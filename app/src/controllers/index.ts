@@ -2,7 +2,7 @@
 
 import { parseCachedTimeSeries } from '@/dtos';
 import { queryTimeSeries } from '@/lib/marketstack';
-import cache, { RedisCache } from '@/lib/redis';
+import db, { RedisDb } from '@/lib/redis';
 import { TimeSeriesData, TimeSeriesPoint } from '@/types';
 
 export const fetchChartData = async ({
@@ -14,6 +14,8 @@ export const fetchChartData = async ({
   buyDate: string;
   amount: number;
 }): Promise<TimeSeriesData> => {
+
+  const cache = await db();
 
   const [indexSeries, assetSeries] = await Promise.all([
     getSymbolTimeSeries(cache, 'IVV', buyDate),
@@ -42,7 +44,7 @@ export const fetchChartData = async ({
   };
 };
 
-const getSymbolTimeSeries = async (cache: RedisCache, symbol: string, buyDate: string) => {
+const getSymbolTimeSeries = async (cache: RedisDb, symbol: string, buyDate: string) => {
   
   const cacheKey = `${symbol}-${buyDate}`;  
   const cached = await cache.get(cacheKey);
@@ -52,7 +54,6 @@ const getSymbolTimeSeries = async (cache: RedisCache, symbol: string, buyDate: s
   }
 
   const fresh = await queryTimeSeries({ symbol, buyDate });
-  console.log(fresh.at(0));
   await cache.set(cacheKey, JSON.stringify(fresh));
 
   return fresh;
