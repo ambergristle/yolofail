@@ -18,7 +18,7 @@ export const fetchChartData = async ({
   const [indexSeries, assetSeries] = await Promise.all([
     getSymbolTimeSeries(cache, 'IVV', buyDate),
     getSymbolTimeSeries(cache, symbol, buyDate),
-  ]).finally(() => cache.close());
+  ]).finally(cache.close);
 
   /** @todo handle errors */
   if (!indexSeries.length || !assetSeries.length) throw new Error();

@@ -4,12 +4,13 @@ const client = createClient({
   url: process.env.REDIS_URL,
 })
   .on('connect', () => console.info('Redis Client Connected'))
-  .on('error', (error) => console.info('Redis Client Error', error));
+  .on('end', () => console.info('Redis Client Disconnected'));
+  // .on('error', (error) => console.error('Redis Client Error:', error));
 
 export type RedisCache = {
   get: (key: string) => Promise<string | null>;
   set: (key: string, value: string) => Promise<string | null>;
-  close: () => Promise<string>;
+  close: () => Promise<void>;
 }
 
 const cache = () => {
@@ -17,6 +18,7 @@ const cache = () => {
 
   const connect = async () => {
     if (!connection) {
+      console.log('no conn');
       connection = await client.connect();
     }
     
@@ -35,7 +37,7 @@ const cache = () => {
       });
     },
     close: async () => {
-      return await connection?.quit();
+      await connection?.quit();
     },
   };
 };

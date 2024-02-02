@@ -30,7 +30,10 @@ const Page = async ({
     );
 
   } catch (error) {
-    console.error(error);
+    // console.error(error);
+    if (error instanceof Error) {
+      console.error(error.stack);
+    }
     /** @todo return 404 */
     return (
       <main className="h-80 pt-20">
