@@ -30,7 +30,7 @@ const Page = async ({
     );
 
   } catch (error) {
-    console.error(error);
+    console.error(JSON.stringify(error, null, 2));
     
     const errorMessage = error instanceof Error && error.message
       ? error.message 
