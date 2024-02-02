@@ -35,7 +35,6 @@ const db = async (): Promise<RedisDb> => {
       });
     },
     close: async () => {
-      console.log('QUIT');
       if (client.isOpen) return client.quit();
     },
   };

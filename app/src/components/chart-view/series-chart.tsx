@@ -22,16 +22,16 @@ const SeriesChart = ({
 }: PropTypes) => {
 
   if (isLoading) return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex h-96 flex-col items-center justify-center">
       <LoadingIcon 
-        className="h-8 w-8 animate-spin text-muted-foreground" 
+        className="text-muted-foreground h-8 w-8 animate-spin" 
       />
     </div>
   );
 
   if (error) {
     return (
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex h-96 flex-col items-center justify-center">
         <Typography className="text-destructive" variant='h3'>
           {error instanceof Error ? error.message : 'Something went wrong...'}
         </Typography>

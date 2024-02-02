@@ -20,6 +20,7 @@ export const queryTimeSeries = async ({
 }): Promise<CachedTimeSeries> => {
 
   try {
+
     const { data, pagination } = await MarketStack
       .query({
         access_key: process.env.MARKETSTACK_API_KEY,
@@ -31,8 +32,6 @@ export const queryTimeSeries = async ({
       })
       .get()
       .json(parseResponse);
-
-    console.log(pagination);
 
     series.push(...data);
 

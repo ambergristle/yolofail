@@ -37,7 +37,7 @@ const SeriesChart = <
   }: PropTypes<T, Index, Key>) => {
 
   return (
-    <>
+    <div className="h-96 w-full">
       <div className="flex h-9 w-full items-center justify-end">
         <Legend
           className="mt-3"
@@ -45,79 +45,77 @@ const SeriesChart = <
           colors={colors}
         />
       </div>
-      <div className="h-80 w-full">
-        <AreaChart
-          data={data}
-          index={index}
-          categories={categories}
-          colors={colors}
-          valueFormatter={formatValue}
-          showAnimation
-          showXAxis={false}
-          showYAxis={false}
-          showLegend={false}
-          customTooltip={({ payload, active, label }) => {
-            if (!active || !payload) return null;
+      <AreaChart
+        data={data}
+        index={index}
+        categories={categories}
+        colors={colors}
+        valueFormatter={formatValue}
+        showAnimation
+        showXAxis={false}
+        showYAxis={false}
+        showLegend={false}
+        customTooltip={({ payload, active, label }) => {
+          if (!active || !payload) return null;
 
-            return (
-              <div className="rounded-tremor-default border border-tremor-border bg-tremor-background text-tremor-default shadow-tremor-dropdown dark:border-dark-tremor-border dark:bg-dark-tremor-background dark:shadow-dark-tremor-dropdown">
-                <div className="border-b border-tremor-border px-4 py-2 dark:border-dark-tremor-border">
-                  <p className="font-medium text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis">
-                    {label}
-                  </p>
-                </div>
-                <div className="space-y-1 px-4 py-2">
-                  {payload.map((category) => (
-                    <div 
-                      key={`${category.dataKey}-${category.value}`} 
-                      className="flex items-center justify-between space-x-8"
-                    >
-                      <div className="flex items-center space-x-2">
-                        <span
-                          className={cn(
-                            // common
-                            'h-3 w-3 shrink-0 rounded-tremor-full border-2',
-                            // light
-                            'border-tremor-background shadow-tremor-card',
-                            // dark
-                            'dark:border-dark-tremor-background dark:shadow-dark-tremor-card',
-                            `bg-${category.color}-500`,
-                          )}
-                        />
-                        <p
-                          className={cn(
-                            // commmon
-                            'whitespace-nowrap text-right',
-                            // light
-                            'text-tremor-content',
-                            // dark
-                            'dark:text-dark-tremor-content',
-                          )}
-                        >
-                          {getLabel(category.dataKey as Key)}
-                        </p>
-                      </div>
-                      <p
+          return (
+            <div className="rounded-tremor-default border-tremor-border bg-tremor-background text-tremor-default shadow-tremor-dropdown dark:border-dark-tremor-border dark:bg-dark-tremor-background dark:shadow-dark-tremor-dropdown border">
+              <div className="border-tremor-border dark:border-dark-tremor-border border-b px-4 py-2">
+                <p className="text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis font-medium">
+                  {label}
+                </p>
+              </div>
+              <div className="space-y-1 px-4 py-2">
+                {payload.map((category) => (
+                  <div 
+                    key={`${category.dataKey}-${category.value}`} 
+                    className="flex items-center justify-between space-x-8"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <span
                         className={cn(
                           // common
-                          'whitespace-nowrap text-right font-medium tabular-nums',
+                          'rounded-tremor-full h-3 w-3 shrink-0 border-2',
                           // light
-                          'text-tremor-content-emphasis',
+                          'border-tremor-background shadow-tremor-card',
                           // dark
-                          'dark:text-dark-tremor-content-emphasis',
+                          'dark:border-dark-tremor-background dark:shadow-dark-tremor-card',
+                          `bg-${category.color}-500`,
+                        )}
+                      />
+                      <p
+                        className={cn(
+                          // commmon
+                          'whitespace-nowrap text-right',
+                          // light
+                          'text-tremor-content',
+                          // dark
+                          'dark:text-dark-tremor-content',
                         )}
                       >
-                        {formatValue(category.value as number)}
+                        {getLabel(category.dataKey as Key)}
                       </p>
                     </div>
-                  ))}
-                </div>
+                    <p
+                      className={cn(
+                        // common
+                        'whitespace-nowrap text-right font-medium tabular-nums',
+                        // light
+                        'text-tremor-content-emphasis',
+                        // dark
+                        'dark:text-dark-tremor-content-emphasis',
+                      )}
+                    >
+                      {formatValue(category.value as number)}
+                    </p>
+                  </div>
+                ))}
               </div>
-            );
-          }}
-        />
-      </div>
-    </>
+            </div>
+          );
+        }}
+      />
+    </div>
   );
 };
 
