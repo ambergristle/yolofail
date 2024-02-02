@@ -31,10 +31,11 @@ export const queryTimeSeries = async ({
 
     const url = 'https://api.marketstack.com/v1/eod?' + new URLSearchParams(params);
 
-    const { data, pagination } = await fetch(url).then((res) => {
-      console.log(res.status);
-      console.log(res.headers);
-      return res.json();
+    const { data, pagination } = await fetch(url).then(async (res) => {
+      console.log(res);
+      const json = await res.json();
+      console.log('parsed');
+      return json;
     }).then(parseResponse);
 
     // const { data, pagination } = await MarketStack
