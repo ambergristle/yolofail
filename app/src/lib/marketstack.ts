@@ -30,16 +30,9 @@ export const queryTimeSeries = async ({
         ...(offset && { offset }),
       })
       .get()
-      .res((response) => {
-        console.log('GOTEM');
-        console.log(response);
-        return response.json();
-      });
+      .json(parseResponse);
 
-    // .json((payload) => {
-    //   console.log('PERSIN');
-    //   return parseResponse(payload);
-    // });
+    console.log(pagination);
 
     series.push(...data);
 
