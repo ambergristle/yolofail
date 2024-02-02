@@ -18,9 +18,9 @@ export default (() => {
   };
 
   return {
+    connect,
     get: async (key: string) => {
       const client = await connect();
-      console.log(key);
       return client.get(key);
     },
     set: async (key: string, value: string) => {

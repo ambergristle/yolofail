@@ -2,7 +2,7 @@
 
 import { parseCachedTimeSeries } from '@/dtos';
 import { queryTimeSeries } from '@/lib/marketstack';
-import cache from '@/lib/redis';
+import db from '@/lib/redis';
 import { TimeSeriesData, TimeSeriesPoint } from '@/types';
 
 export const fetchChartData = async ({
@@ -45,7 +45,8 @@ export const fetchChartData = async ({
 const getSymbolTimeSeries = async (symbol: string, buyDate: string) => {
   
   const cacheKey = `${symbol}-${buyDate}`;
-
+  const cache = await db.connect();
+  
   const cached = await cache.get(cacheKey);
   if (cached) {
     return parseCachedTimeSeries(cached);
