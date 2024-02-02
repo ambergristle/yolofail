@@ -1,20 +1,26 @@
 import { RedisClientType, RedisFunctions, RedisModules, RedisScripts, createClient } from 'redis';
 
-export default () => {
-  let _client: RedisClientType<RedisModules, RedisFunctions, RedisScripts>;
+const client = createClient({
+  url: process.env.REDIS_URL,
+})
+  .on('connect', () => console.info('Redis Client Connected'))
+  .on('error', (error) => console.info('Redis Client Error', error));
+
+export type RedisCache = {
+  get: (key: string) => Promise<string | null>;
+  set: (key: string, value: string) => Promise<string | null>;
+  close: () => Promise<string>;
+}
+
+const cache = () => {
+  let connection: RedisClientType<RedisModules, RedisFunctions, RedisScripts>;
 
   const connect = async () => {
-    if (!_client) {
-      console.log(process.env.REDIS_URL);
-      _client = await createClient({
-        url: process.env.REDIS_URL,
-      })
-        .on('connect', () => console.info('Redis Client Connected'))
-        .on('error', (error) => console.info('Redis Client Error', error))
-        .connect();
+    if (!connection) {
+      connection = await client.connect();
     }
-
-    return _client;
+    
+    return connection;
   };
 
   return {
@@ -29,8 +35,9 @@ export default () => {
       });
     },
     close: async () => {
-      return await _client?.quit();
+      return await connection?.quit();
     },
   };
-
 };
+
+export default cache();
