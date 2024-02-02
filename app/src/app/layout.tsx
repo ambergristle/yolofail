@@ -3,6 +3,12 @@ import Link from 'next/link';
 
 import '../styles/globals.css';
 
+// add favicon.ico at root
+// https://nextjs.org/docs/app/api-reference/file-conventions/metadata/app-icons
+
+/**
+ * https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadata-fields
+ */
 export const metadata: Metadata = {
   title: 'yolofail',
   description: 'rip your retirement',
@@ -15,6 +21,12 @@ export const metadata: Metadata = {
     'yeet',
     'wallstreetbets',
   ],
+  // openGraph: {
+  //   title: '',
+  //   description: '',
+  //   url: 'url',
+  //   images: 'url',
+  // },
 };
 
 const RootLayout = ({
