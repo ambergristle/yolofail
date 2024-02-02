@@ -10,20 +10,20 @@ const client = createClient({
 export type RedisCache = {
   get: (key: string) => Promise<string | null>;
   set: (key: string, value: string) => Promise<string | null>;
-  close: () => Promise<void>;
+  close: () => Promise<string>;
 }
 
 const cache = () => {
   let connection: RedisClientType<RedisModules, RedisFunctions, RedisScripts>;
 
-  const connect = async () => {
+  async function connect() {
     if (!connection) {
       console.log('no conn');
       connection = await client.connect();
     }
     
     return connection;
-  };
+  }
 
   return {
     get: async (key: string) => {
@@ -37,7 +37,7 @@ const cache = () => {
       });
     },
     close: async () => {
-      await connection?.quit();
+      return await connection?.quit();
     },
   };
 };
