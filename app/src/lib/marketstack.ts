@@ -30,7 +30,10 @@ export const queryTimeSeries = async ({
         ...(offset && { offset }),
       })
       .get()
-      .json(parseResponse);
+      .json((payload) => {
+        console.log('PERSIN');
+        return parseResponse(payload);
+      });
 
     series.push(...data);
 
@@ -48,11 +51,9 @@ export const queryTimeSeries = async ({
     });
 
   } catch (error) {
-    console.log(error);
+    if (error instanceof Error) console.error(error.name);
     /** @todo handle rate limit - 429 */
-    throw new Error('', { 
-      cause: error,
-    });
+    throw error;
   }
 };
 

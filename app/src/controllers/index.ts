@@ -46,13 +46,13 @@ const getSymbolTimeSeries = async (cache: RedisCache, symbol: string, buyDate: s
   
   const cacheKey = `${symbol}-${buyDate}`;  
   const cached = await cache.get(cacheKey);
-  console.log(cacheKey);
+
   if (cached) {
     return parseCachedTimeSeries(cached);
   }
-  console.log({ symbol });
-  const fresh = await queryTimeSeries({ symbol, buyDate });
 
+  const fresh = await queryTimeSeries({ symbol, buyDate });
+  console.log(fresh.at(0));
   await cache.set(cacheKey, JSON.stringify(fresh));
 
   return fresh;

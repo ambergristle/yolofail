@@ -30,15 +30,17 @@ const Page = async ({
     );
 
   } catch (error) {
-    // console.error(error);
-    if (error instanceof Error) {
-      console.error(error.stack);
-    }
+    console.error(error);
+    
+    const errorMessage = error instanceof Error && error.message
+      ? error.message 
+      : 'Something went wrong...';
+
     /** @todo return 404 */
     return (
-      <main className="h-80 pt-20">
+      <main className="h-96 pt-20">
         <Typography className="text-destructive self-center" variant='h3'>
-          {error instanceof Error ? error.message : 'Something went wrong...'}
+          {errorMessage}
         </Typography>
       </main>
     );
