@@ -6,7 +6,7 @@ export default (() => {
   const connect = async () => {
     if (!_client) {
       _client = await createClient({
-        url: 'redis://cache:6379',
+        url: process.env.REDIS_URL,
       })
         .on('connect', () => console.log('Redis Client Connected'))
         .on('error', (error) => console.log('Redis Client Error', error))
