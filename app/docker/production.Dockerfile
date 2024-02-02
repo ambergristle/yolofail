@@ -37,8 +37,8 @@ FROM base AS release
 
 # automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=prerelease --chown=bun:bun  /usr/app/src/.next/standalone ./
-COPY --from=prerelease --chown=bun:bun  /usr/app/src/.next/static ./.next/static
+COPY --from=prerelease --chown=bun:bun  /usr/src/app/.next/standalone ./
+COPY --from=prerelease --chown=bun:bun  /usr/src/app/.next/static ./.next/static
 
 # environment variables must be redefined at run time
 ENV NODE_ENV=production
