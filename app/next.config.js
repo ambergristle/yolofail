@@ -9,7 +9,7 @@ const nextConfig = {
     config.resolve.fallback = { fs: false, path: false };
     return config;
   },
-  // potentially needed for docker
+  // needed for docker
   output: 'standalone',
 };
 
