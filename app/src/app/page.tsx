@@ -1,5 +1,6 @@
 import { fetchChartData } from '@/controllers';
 import { parseSearchParams } from '@/dtos';
+import { Typography } from '@/components/ui/typography';
 import ChartView from '@/components/chart-view';
 import { QueryContextProvider } from '@/components/query-context';
 
@@ -27,9 +28,17 @@ const Page = async ({
         <ChartView query={query} />
       </QueryContextProvider>
     );
+
   } catch (error) {
+    console.error(error);
     /** @todo return 404 */
-    return null;
+    return (
+      <main className="h-80 pt-20">
+        <Typography className="text-destructive self-center" variant='h3'>
+          {error instanceof Error ? error.message : 'Something went wrong...'}
+        </Typography>
+      </main>
+    );
   }
 
 };
