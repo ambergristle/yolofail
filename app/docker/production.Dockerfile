@@ -1,4 +1,4 @@
-FROM oven/bun:1.0-slim as base
+FROM oven/bun:1.0.26 as base
 WORKDIR /usr/src/app
 
 RUN apt-get update -y && apt-get install -y
