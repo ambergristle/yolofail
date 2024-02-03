@@ -1,4 +1,4 @@
-FROM oven/bun:1.0.26 as base
+FROM oven/bun:1.0-slim as base
 WORKDIR /usr/src/app
 
 RUN apt-get update -y && apt-get install -y
@@ -40,11 +40,6 @@ FROM base AS release
 COPY --from=install /temp/prod/node_modules node_modules
 COPY --from=prerelease --chown=bun:bun  /usr/src/app/.next/standalone ./
 COPY --from=prerelease --chown=bun:bun  /usr/src/app/.next/static ./.next/static
-
-# COPY --from=build /usr/src/app/package.json ./package.json
-# COPY --from=build /usr/src/app/node_modules ./node_modules
-# COPY --from=build /usr/src/app/.next ./.next
-# COPY --from=build /usr/src/app/public ./public
 
 # environment variables must be redefined at run time
 ENV NODE_ENV=production
