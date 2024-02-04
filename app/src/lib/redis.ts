@@ -1,5 +1,6 @@
 import { createClient } from 'redis';
 
+console.log('REDIS_URL', process.env.REDIS_URL);
 const client = createClient({
   url: process.env.REDIS_URL,
 })
@@ -17,6 +18,7 @@ const db = async (): Promise<RedisDb> => {
 
   const connect = async () => {
     if (!client.isOpen) {
+      console.log('CONNECTING_TO', process.env.REDIS_URL);
       await client.connect();
     }
  
