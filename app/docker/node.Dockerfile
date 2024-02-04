@@ -22,17 +22,17 @@ FROM install AS prerelease
 COPY --from=install /temp/dev/node_modules node_modules
 COPY . .
 
+ENV NODE_ENV=production
+# next.js collects completely anonymous telemetry data about general usage 
+# learn more here: https://nextjs.org/telemetry
+ENV NEXT_TELEMETRY_DISABLED 1
+
 # RUN yarn test
 RUN yarn run build
 
 # copy production dependencies and source code into final image
 FROM base AS release
 WORKDIR /usr/src/app
-
-ENV NODE_ENV=production
-# next.js collects completely anonymous telemetry data about general usage 
-# learn more here: https://nextjs.org/telemetry
-ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
