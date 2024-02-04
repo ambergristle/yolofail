@@ -21,6 +21,9 @@ export const queryTimeSeries = async ({
 
   try {
     const { data, pagination } = await MarketStack
+      .headers({
+        'Accept': 'application/json',
+      })
       .query({
         access_key: process.env.MARKETSTACK_API_KEY,
         symbols: symbol,
