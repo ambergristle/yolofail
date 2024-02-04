@@ -35,19 +35,7 @@ export const queryTimeSeries = async ({
       })
       .get()
       .res(async (response) => {
-        const reader = response.clone().body?.getReader();
-
-        let text = '';
-
-        await reader?.read().then(function process({ done, value }): Promise<ReadableStreamReadResult<Uint8Array> | undefined> | undefined {
-          if (done) return;
-          console.log('hi');
-          text += value;
-          return reader.read().then(process);
-        });
-
-        console.log('BODY', text);
-
+        console.log(response);
         return response.json();
       }).then(parseResponse);
 
