@@ -34,7 +34,10 @@ export const queryTimeSeries = async ({
         ...(offset && { offset }),
       })
       .get()
-      .json(parseResponse);
+      .res((response) => {
+        console.log(response);
+        return response.json();
+      }).then(parseResponse);
 
     series.push(...data);
 
