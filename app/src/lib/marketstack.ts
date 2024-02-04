@@ -34,8 +34,20 @@ export const queryTimeSeries = async ({
         ...(offset && { offset }),
       })
       .get()
-      .res((response) => {
-        console.log(response);
+      .res(async (response) => {
+        const reader = response.clone().body?.getReader();
+
+        let text = '';
+
+        await reader?.read().then(function process({ done, value }): any {
+          if (done) return;
+          console.log('hi');
+          text += value;
+          return reader.read().then(process);
+        });
+
+        console.log('BODY', text);
+
         return response.json();
       }).then(parseResponse);
 
