@@ -43,4 +43,4 @@ COPY --from=prerelease --chown=bun:bun  /usr/src/app/.next/static ./.next/static
 
 # run the app
 # note: Don't expose ports here, ompose will handle that for us
-CMD [ "bun", "run", "server.js" ]
+ENTRYPOINT [ "bun", "run", "server.js" ]
