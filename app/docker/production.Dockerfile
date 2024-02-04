@@ -37,15 +37,10 @@ FROM base AS release
 
 # automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=install /temp/prod/node_modules node_modules
+#COPY --from=install /temp/prod/node_modules node_modules
 COPY --from=prerelease --chown=bun:bun  /usr/src/app/.next/standalone ./
 COPY --from=prerelease --chown=bun:bun  /usr/src/app/.next/static ./.next/static
 
-# environment variables must be redefined at run time
-ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED 1
-
 # run the app
 # note: Don't expose ports here, ompose will handle that for us
-# EXPOSE 3000/tcp
-CMD [ "bun", "start" ]
+CMD [ "bun", "run", "server.js" ]
