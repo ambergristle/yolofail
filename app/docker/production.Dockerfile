@@ -43,8 +43,6 @@ COPY --from=prerelease --chown=bun:bun  /usr/src/app/.next/static ./.next/static
 
 # environment variables must be redefined at run time
 ENV NODE_ENV=production
-# next.js collects completely anonymous telemetry data about general usage 
-# learn more here: https://nextjs.org/telemetry
 ENV NEXT_TELEMETRY_DISABLED 1
 
 # run the app

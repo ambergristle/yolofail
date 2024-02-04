@@ -1,9 +1,11 @@
+import wretch from 'wretch';
+import QueryStringAddon from 'wretch/addons/queryString';
 import { z } from 'zod';
 
 import { CachedTimeSeries } from '@/types';
 
-// const MarketStack = wretch('https://api.marketstack.com/v1/eod')
-//   .addon(QueryStringAddon);
+const MarketStack = wretch('https://api.marketstack.com/v1/eod')
+  .addon(QueryStringAddon);
 
 export const queryTimeSeries = async ({
   symbol,
@@ -18,37 +20,17 @@ export const queryTimeSeries = async ({
 }): Promise<CachedTimeSeries> => {
 
   try {
-
-    const params: Record<string, string> = {
-      /** @todo extract */
-      access_key: `${process.env.MARKETSTACK_API_KEY}`,
-      symbols: symbol,
-      date_from: buyDate,
-      limit: '1000',
-      sort: 'ASC',
-      ...(offset && { offset: `${offset}` }),
-    };
-
-    const url = 'https://api.marketstack.com/v1/eod?' + new URLSearchParams(params);
-
-    const { data, pagination } = await fetch(url).then(async (res) => {
-      console.log(res);
-      const json = await res.json();
-      console.log('parsed');
-      return json;
-    }).then(parseResponse);
-
-    // const { data, pagination } = await MarketStack
-    //   .query({
-    //     access_key: process.env.MARKETSTACK_API_KEY,
-    //     symbols: symbol,
-    //     date_from: buyDate,
-    //     limit: 1000,
-    //     sort: 'ASC',
-    //     ...(offset && { offset }),
-    //   })
-    //   .get()
-    //   .json(parseResponse);
+    const { data, pagination } = await MarketStack
+      .query({
+        access_key: process.env.MARKETSTACK_API_KEY,
+        symbols: symbol,
+        date_from: buyDate,
+        limit: 1000,
+        sort: 'ASC',
+        ...(offset && { offset }),
+      })
+      .get()
+      .json(parseResponse);
 
     series.push(...data);
 
