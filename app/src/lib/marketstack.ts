@@ -39,7 +39,7 @@ export const queryTimeSeries = async ({
 
         let text = '';
 
-        await reader?.read().then(function process({ done, value }): any {
+        await reader?.read().then(function process({ done, value }): Promise<ReadableStreamReadResult<Uint8Array> | undefined> | undefined {
           if (done) return;
           console.log('hi');
           text += value;
