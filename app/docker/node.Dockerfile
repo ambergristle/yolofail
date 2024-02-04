@@ -33,7 +33,6 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
 # Set the correct permission for prerender cache
-RUN mkdir .next
 RUN chown nextjs:nodejs .next
 
 # copy production dependencies and source code into final image
