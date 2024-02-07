@@ -6,7 +6,7 @@ services:
   dragonfly-db:
     container_name: dragonfly-db
     image: "docker.dragonflydb.io/dragonflydb/dragonfly"
-    restart: always
+    restart: on-failure
     ulimits:
       memlock: -1
     volumes:
@@ -21,7 +21,7 @@ services:
   # https://github.com/vercel/next.js/blob/canary/examples/with-docker-compose/docker-compose.dev.yml
   next-app:
     container_name: next-app
-    restart: always
+    restart: on-failure
 
     depends_on:
       - dragonfly-db

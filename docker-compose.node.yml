@@ -20,7 +20,7 @@ services:
 
   # https://github.com/vercel/next.js/blob/canary/examples/with-docker-compose/docker-compose.dev.yml
   next-app:
-    container_name: next-app-dev
+    container_name: next-app-node
     restart: on-failure
 
     depends_on:
@@ -29,7 +29,7 @@ services:
       - .env.local
     build:
       context: ./app
-      dockerfile: docker/development.Dockerfile
+      dockerfile: docker/node.Dockerfile
     volumes:
       - ./app/src:/usr/app/src
       - ./app/public:/usr/app/public
