@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
+import { BASE_URL } from '@/config';
 import '../styles/globals.css';
 
 // add favicon.ico at root
@@ -21,12 +22,16 @@ export const metadata: Metadata = {
     'yeet',
     'wallstreetbets',
   ],
-  // openGraph: {
-  //   title: '',
-  //   description: '',
-  //   url: 'url',
-  //   images: 'url',
-  // },
+  openGraph: {
+    title: 'yolofail',
+    description: 'rip your retirement',
+    url: BASE_URL,
+    images: [{
+      url: `${BASE_URL}/api/og`,
+      width: 1200,
+      height: 630,
+    }],
+  },
 };
 
 const RootLayout = ({
