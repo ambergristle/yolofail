@@ -2,19 +2,23 @@ import { ImageResponse } from 'next/og';
 import { SparkAreaChart } from '@tremor/react';
 
 import { fetchChartData } from '@/controllers';
+import { parseSearchParams } from '@/dtos';
 import { oneYearAgo } from '@/lib/utils';
-
-export const runtime = 'edge';
 
 export const dynamic = 'force-dynamic';
 
-export const GET = async (req: Request) => {
+export const GET = async (request: Request) => {
   try {
-    const data = await fetchChartData({
+    const url = new URL(request.url);
+    const searchParams = Object.fromEntries(url.searchParams.entries());
+
+    const query = parseSearchParams(searchParams, {
       symbol: 'GME',
       buyDate: oneYearAgo(),
-      amount: 100,
+      amount: '100',
     });
+    
+    const data = await fetchChartData(query);
 
     const isLoss = data.summary.valueDelta < 0;
 
