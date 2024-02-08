@@ -1,3 +1,4 @@
+import { createElement } from 'react';
 import { ImageResponse } from 'next/og';
 import { SparkAreaChart } from '@tremor/react';
 
@@ -23,18 +24,20 @@ export const GET = async (request: Request) => {
     const isLoss = data.summary.valueDelta < 0;
 
     // https://vercel.com/docs/functions/og-image-generation/og-image-examples
-    return new ImageResponse((
-      <SparkAreaChart
-        index="date"
-        categories={['asset']}
-        data={data.series}
-        colors={[isLoss ? 'red' : 'green']}
-      />
-    ), {
+    const element = createElement(SparkAreaChart, {
+      index: 'date',
+      categories: ['asset'],
+      data: data.series,
+      colors: [isLoss ? 'red' : 'green'],
+    });
+   
+    return new ImageResponse(element, {
       width: 1200,
       height: 630,
     });
+
   } catch (error) {
+    
     return new ImageResponse((
       <div>
         stonks
