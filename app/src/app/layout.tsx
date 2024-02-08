@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
-import { BASE_URL } from '@/config';
+import { getBaseUrl } from '@/config';
 import '../styles/globals.css';
 
 // add favicon.ico at root
@@ -11,7 +11,7 @@ import '../styles/globals.css';
  * https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadata-fields
  */
 export const metadata: Metadata = {
-  metadataBase: new URL(BASE_URL),
+  metadataBase: new URL(getBaseUrl()),
   title: 'yolofail',
   description: 'rip your retirement',
   keywords: [

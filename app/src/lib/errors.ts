@@ -1,11 +1,27 @@
 import { STATUS_CODES } from 'http';
 
+class KnownError extends Error {
+  constructor(message: string, options?: ErrorOptions) {
+    super(message, options);
+
+    this.name = 'KnownError';
+  }
+}
+
+export class EnvError extends KnownError {
+  constructor(message: string, options?: ErrorOptions) {
+    super(message, options);
+
+    this.name = 'EnvError';
+  }
+}
+
 type HttpErrorOptions = {
   statusCode: number;
   cause?: unknown;
 }
 
-export class HttpError extends Error {
+export class HttpError extends KnownError {
   public readonly statusCode: number;
 
   constructor(message: string, options: HttpErrorOptions) {

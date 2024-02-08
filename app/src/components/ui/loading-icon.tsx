@@ -1,7 +1,7 @@
 
 const LoadingIcon = (props: React.HTMLAttributes<SVGElement>) => {
   return (
-    <div className="h-fit w-fit">
+    <div className="size-fit">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
