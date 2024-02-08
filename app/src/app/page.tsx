@@ -8,12 +8,9 @@ export const dynamic = 'force-dynamic';
 
 type PageProps = {
   searchParams?: Record<string, string | string[] | undefined>;
-}
+};
 
-const Page = async ({
-  searchParams = {},
-}: PageProps) => {
-
+const Page = async ({ searchParams = {} }: PageProps) => {
   try {
     const query = parseSearchParams(searchParams, {
       symbol: 'GME',
@@ -28,31 +25,23 @@ const Page = async ({
         <ChartView query={query} />
       </QueryContextProvider>
     );
-
   } catch (error) {
-    if (error instanceof Error) {
-      console.error({
-        name: error.name,
-        message: error.message,
-        cause: error.cause,
-        stack: error.stack,
-      });
-    }
-    
-    const errorMessage = error instanceof Error && error.message
-      ? error.message 
-      : 'Something went wrong...';
+    console.error(error);
 
-    /** @todo return 404 */
+    const errorMessage =
+      error instanceof Error && error.message
+        ? error.message
+        : 'Something went wrong...';
+
+    /** @todo specific error handling */
     return (
       <main className="flex h-96 flex-col items-center justify-center pt-20">
-        <Typography className="text-destructive" variant='h3'>
+        <Typography className="text-destructive" variant="h3">
           {errorMessage}
         </Typography>
       </main>
     );
   }
-
 };
 
 export default Page;

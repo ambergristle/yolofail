@@ -1,6 +1,7 @@
 'use server';
 
 import { parseCachedTimeSeries } from '@/dtos';
+import { HttpError, ServiceError } from '@/lib/errors';
 import { queryTimeSeries } from '@/lib/marketstack';
 import db, { RedisDb } from '@/lib/redis';
 import { TimeSeriesData, TimeSeriesPoint } from '@/types';
@@ -15,6 +16,7 @@ export const fetchChartData = async ({
   amount: number;
 }): Promise<TimeSeriesData> => {
 
+  /** @todo wrap error? */
   const cache = await db();
 
   const [indexSeries, assetSeries] = await Promise.all([
@@ -22,9 +24,12 @@ export const fetchChartData = async ({
     getSymbolTimeSeries(cache, symbol, buyDate),
   ]).finally(cache.close);
 
-  /** @todo handle errors */
-  if (!indexSeries.length || !assetSeries.length) throw new Error();
-  if (indexSeries.length !== assetSeries.length) throw new Error();
+  const dataMissing = !indexSeries.length || !assetSeries.length;
+  const dataInvalid = indexSeries.length !== assetSeries.length;
+
+  if (dataMissing || dataInvalid) {
+    throw new ServiceError('Data incomplete or unavailable');
+  }
 
   const indexShareCount = amount / indexSeries[0].value;
   const assetShareCount = amount / assetSeries[0].value;
@@ -45,18 +50,23 @@ export const fetchChartData = async ({
 };
 
 const getSymbolTimeSeries = async (cache: RedisDb, symbol: string, buyDate: string) => {
+  try {
+    const cacheKey = `${symbol}-${buyDate}`;  
+    const cached = await cache.get(cacheKey);
   
-  const cacheKey = `${symbol}-${buyDate}`;  
-  const cached = await cache.get(cacheKey);
-
-  if (cached) {
-    return parseCachedTimeSeries(cached);
+    if (cached) {
+      return parseCachedTimeSeries(cached);
+    }
+  
+    const fresh = await queryTimeSeries({ symbol, buyDate });
+    await cache.set(cacheKey, JSON.stringify(fresh));
+  
+    return fresh;
+  } catch (cause) {
+    if (cause instanceof HttpError) throw cause;
+    /** @todo */
+    throw new ServiceError('Something went wrong', { cause });
   }
-
-  const fresh = await queryTimeSeries({ symbol, buyDate });
-  await cache.set(cacheKey, JSON.stringify(fresh));
-
-  return fresh;
 };
 
 const generateSummary = (data: TimeSeriesPoint[]) => {
