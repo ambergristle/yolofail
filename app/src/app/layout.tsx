@@ -11,6 +11,7 @@ import '../styles/globals.css';
  * https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadata-fields
  */
 export const metadata: Metadata = {
+  metadataBase: new URL(BASE_URL),
   title: 'yolofail',
   description: 'rip your retirement',
   keywords: [
@@ -25,12 +26,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'yolofail',
     description: 'rip your retirement',
-    url: BASE_URL,
-    images: [{
-      url: `${BASE_URL}/api/og`,
-      width: 1200,
-      height: 630,
-    }],
+    url: '/',
+    images: '/api/og',
   },
 };
 
