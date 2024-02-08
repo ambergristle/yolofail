@@ -3,6 +3,7 @@ import { parseSearchParams } from '@/dtos';
 import { Typography } from '@/components/ui/typography';
 import ChartView from '@/components/chart-view';
 import { QueryContextProvider } from '@/components/query-context';
+import { oneYearAgo } from '@/lib/utils';
 
 export const dynamic = 'force-dynamic';
 
@@ -45,9 +46,3 @@ const Page = async ({ searchParams = {} }: PageProps) => {
 };
 
 export default Page;
-
-const oneYearAgo = () => {
-  const now = new Date();
-  const yearAgoValue = now.setFullYear(now.getFullYear() - 1);
-  return new Date(yearAgoValue).toISOString().split('T')[0];
-};

@@ -36,7 +36,7 @@ const ChartView = ({ query }: PropTypes) => {
           <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0">
             {`$${currentValue.toFixed(2)}`}
           </h2>
-          <p className="leading-7 text-muted-foreground">
+          <p className="text-muted-foreground leading-7">
             {`${sign}$${valueChange} (${sign}${percentChange}%)`}
             <span>
               {' vs S&P500'}
