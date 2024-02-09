@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { getBaseUrl } from '@/config';
 import '../styles/globals.css';
 
-// add favicon.ico at root
 // https://nextjs.org/docs/app/api-reference/file-conventions/metadata/app-icons
 
 /**
@@ -27,6 +26,12 @@ export const metadata: Metadata = {
     title: 'yolofail',
     description: 'rip your retirement',
     url: '/',
+    images: '/api/og',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'yolofail',
+    description: 'rip your retirement',
     images: '/api/og',
   },
 };
