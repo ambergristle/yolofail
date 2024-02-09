@@ -1,6 +1,6 @@
 'use client';
 
-import { LoadingIcon } from '@/components/ui/loading-icon';
+import { LoadingIcon } from '@/components/svg/loading';
 import { Typography } from '@/components/ui/typography';
 import { TimeSeriesPoint } from '@/types';
 import AreaChart from './area-chart';
