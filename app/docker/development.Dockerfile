@@ -23,4 +23,4 @@ ENV NEXT_TELEMETRY_DISABLED 1
 
 # run the app
 # note: Don't expose ports here, compose will handle that for us
-CMD [ "bun", "dev" ]
+CMD [ "bun", "hot", "dev" ]

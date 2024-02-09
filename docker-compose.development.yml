@@ -25,14 +25,19 @@ services:
 
     depends_on:
       - dragonfly-db
+    environment:
+      - NODE_ENV=development 
     env_file:
       - .env.local
     build:
       context: ./app
-      dockerfile: docker/development.Dockerfile
+      dockerfile: docker/node.Dockerfile
     volumes:
       - ./app/src:/usr/app/src
       - ./app/public:/usr/app/public
+      - .:/app
+      - /app/node_modules
+      - /app/.next
 
     ports:
       - 3000:3000
