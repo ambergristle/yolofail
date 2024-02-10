@@ -34,8 +34,20 @@ export const fetchChartData = async ({
   const indexShareCount = amount / indexSeries[0].value;
   const assetShareCount = amount / assetSeries[0].value;
 
+  let maxValue = 0;
+  let minValue = 0;
+
   const series = indexSeries.map((indexPoint, i) => {
     const assetPoint = assetSeries[i];
+
+    if (assetPoint.value > maxValue) {
+      maxValue = assetPoint.value;
+    }
+
+    if (assetPoint.value < minValue) {
+      minValue = assetPoint.value;
+    }
+
     return {
       date: indexPoint.date.split('T')[0],
       index: indexPoint.value * indexShareCount,
@@ -45,7 +57,11 @@ export const fetchChartData = async ({
 
   return {
     series: series,
-    summary: generateSummary(series),
+    summary: {
+      ...generateSummary(series),
+      minValue,
+      maxValue,
+    },
   };
 };
 

@@ -50,6 +50,8 @@ const ZTimeSeriesData = z.object({
     asset: z.number(),
   }).array(),
   summary: z.object({
+    minValue: z.number(),
+    maxValue: z.number(),
     currentValue: z.number(),
     valueDelta: z.number(),
     percentDelta: z.number(),

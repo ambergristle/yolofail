@@ -17,6 +17,8 @@ export type TimeSeriesPoint = {
 }
 
 type TimeSeriesSummary = {
+  minValue: number;
+  maxValue: number;
   currentValue: number;
   valueDelta: number;
   percentDelta: number;

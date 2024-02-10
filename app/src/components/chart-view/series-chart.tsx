@@ -49,7 +49,7 @@ const SeriesChart = ({
       data={data}
       index="date"
       categories={['index', 'asset']}
-      colors={['gray', isLoss ? 'red' : 'green']}
+      colors={['gray', isLoss ? 'rose' : 'lime']}
       getLabel={(key) => labels[key]}
       formatValue={currencyFormatter.format}
     />
